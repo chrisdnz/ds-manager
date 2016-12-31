@@ -556,7 +556,7 @@ iframe.iframe{
 	width: 50%;
 	float: left;
 	min-width: 250px;
-  max-width: 300px;
+  	max-width: 300px;
 	box-sizing:border-box;
 }
 
@@ -565,7 +565,7 @@ iframe.iframe{
 }
 
 #optionsContainer .row span.qty{
-  background-color: rgba(30,01,03,0.5);
+  background-color: rgba(30,01,03,0.8);
   text-align: center;
   height: 30px;
   width: 50px;

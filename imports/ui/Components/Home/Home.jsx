@@ -34,8 +34,6 @@ class Home extends Component {
                 <SideBar handleClick={this.handleClick.bind(this)}/>
                 <div className="container">
                     <Brands visibility={this.state.promosView}/>
-                </div>
-                <div className="container">
                     <Setup visibility={this.state.configView}/>
                 </div>
                 <Preview />

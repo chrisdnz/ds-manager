@@ -1,18 +1,33 @@
 import React, {Component} from 'react';
+import './slider.js';
 
 class Setup extends Component {
     constructor(props) {
         super(props);
     }
+    componentWillMount() {
+        $(".slider").PPredraw();
+    }
     componentDidMount() {
-        $('#optionsContainer').hide();
+        $(".slider").PPSlider({
+            setValue: function(elem, value){
+                console.log("test: "+value);
+                val = value*1000;
+                var data = {
+                    key: elem.dataset.id+".timeOut",
+                    value:val
+                };
+                console.dir(data);
+            }
+        });
+        $('#optionsContainer').addClass('hidden');
     }
     shouldComponentUpdate(nextProps, nextState) {
         if(nextProps.visibility){
-            $('#optionsContainer').show(100);
+            $('#optionsContainer').removeClass('hidden');
             return true;
         }else{
-            $('#optionsContainer').hide(100);
+            $('#optionsContainer').addClass('hidden');
             return false;
         }
     }
@@ -23,13 +38,15 @@ class Setup extends Component {
                 <div className="column">
                     <span className="label">Menú</span>
                     <div className="row">
-                        <div><input type="hidden" className="slider"/><span className="qty">5s.</span></div>
-                    </div><br/>
+                        <div><input className="slider" type="hidden" value="5" data-val="" data-id="general"/><span className="qty">5s.</span></div>
+                    </div>
+                    <br/>
                     <span className="label">Promocionales</span>
                     <div className="row">
-                        <div><input type="hidden" className="slider"/><span className="qty">3s.</span></div>
+                        <div><input className="slider" type="hidden" value="3" data-val="" data-id="ads"/><span className="qty">3s.</span></div>
                     </div>
                 </div>
+                <div className="column"></div>
             </div>
         );
     }

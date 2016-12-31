@@ -6,14 +6,14 @@ class Brands extends Component {
         super(props);
     }
     componentDidMount() {
-        $('#dropZone').hide();
+        $('#dropZone').addClass('hidden');
     }
     shouldComponentUpdate(nextProps, nextState) {
         if(nextProps.visibility){
-            $('#dropZone').show(100);
+            $('#dropZone').removeClass('hidden');
             return true;
         }else{
-            $('#dropZone').hide(100);
+            $('#dropZone').addClass('hidden');
             return false;
         }
     }
