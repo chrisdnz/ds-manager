@@ -1,5 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 
 Meteor.startup(() => {
-  // code to run on server at startup
+    Meteor.methods({
+        uploadFile:(fileInfo) => {
+            /*Por seguridad podriamos implementar la subida
+              del archivo en el server, es opcional
+            */
+        }
+    })
 });

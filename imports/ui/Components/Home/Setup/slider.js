@@ -5,7 +5,6 @@
         var options = opts;
         var isMouseDown = false;
        	var initialVal = parseInt(element[0].dataset.val);
-       	        console.log(initialVal);
        	if (!initialVal) {
        		initialVal = 1;
        	};
@@ -15,7 +14,6 @@
 	        initialVal = initialVal;
         }
         var currentVal = initialVal;
-        console.log(currentVal);
 
         var container = $(el).parent();
 

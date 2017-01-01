@@ -11,7 +11,7 @@ class Setup extends Component {
     componentDidMount() {
         $(".slider").PPSlider({
             setValue: function(elem, value){
-                console.log("test: "+value);
+                console.log(`Prueba: ${value}`);
                 val = value*1000;
                 var data = {
                     key: elem.dataset.id+".timeOut",
@@ -36,15 +36,11 @@ class Setup extends Component {
             <div id="optionsContainer" className="animated fadeIn">
                 <h1>Opciones</h1>
                 <div className="column">
-                    <span className="label">Menú</span>
+                    <span className="label">Tiempo por cada anuncio</span>
                     <div className="row">
                         <div><input className="slider" type="hidden" value="5" data-val="" data-id="general"/><span className="qty">5s.</span></div>
                     </div>
                     <br/>
-                    <span className="label">Promocionales</span>
-                    <div className="row">
-                        <div><input className="slider" type="hidden" value="3" data-val="" data-id="ads"/><span className="qty">3s.</span></div>
-                    </div>
                 </div>
                 <div className="column"></div>
             </div>

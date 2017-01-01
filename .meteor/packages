@@ -24,3 +24,7 @@ accounts-password
 meteortoys:allthings
 alanning:roles
 fortawesome:fontawesome
+aldeed:simple-schema
+aldeed:collection2
+cfs:gridfs
+cfs:standard-packages
