@@ -8,6 +8,10 @@ class DropZone extends Component {
             files: []
         }
         this.onDrop = this.onDrop.bind(this);
+        this.onOpenClick = this.onOpenClick.bind(this);
+    }
+    onOpenClick () {
+      this.refs.dropzone.open();
     }
     onDrop (files) {
         this.setState({
@@ -33,6 +37,7 @@ class DropZone extends Component {
         return (
             <div id="dnd">
                 <Dropzone
+                    ref="dropzone"
                     multiple={true}
                     accept="image/*"
                     onDrop={this.onDrop}>
