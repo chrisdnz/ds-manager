@@ -137,7 +137,7 @@ body{
 }
 
 .loginForm button:hover{
-	background-color: #284460
+  background-color: #284460
 }
 
 .loginForm .formContainer{
@@ -528,7 +528,7 @@ iframe.iframe{
     font-size: larger;
 }
 .jqDropZone.hover {
-    background: rgba(235, 28, 35, 0.8)
+    background: rgba(28, 204, 235, 0.8)
 }
 .jqDropZone.fade {
     -webkit-transition: all 0.3s ease-out;
