@@ -44,24 +44,28 @@ class DropZone extends Component {
         });
     }
     handleUpload(files) {
-        $(window).bind('beforeunload', function(){
-            return 'Su archivo no se ha guardado!'
-        });
+        // $(window).bind('beforeunload', function(){
+        //     return 'Su archivo no se ha guardado!'
+        // });
         this.setState({
             uploaded: false
         });
+        let componentRef = this;
         for(var i = 0; i < files.length; i++) {
-            Images.insert(files[i], function(err, image) {
-                let cursor = Images.find({_id: image._id});
-                let liveQuery = cursor.observe({
-                    changed: function(newImage, oldImage){
-                        if(newImage.isUploaded) {
+            Images.insert(files.item(i), function(err, image){
+                var cursor = Images.find({_id: image._id});
+                var liveQuery = cursor.observe({
+                    changed: function(newDoc, oldDoc) {
+                        if(newDoc.isUploaded){
                             liveQuery.stop();
-                            console.log("Imagen subida");
+                            componentRef.setState({
+                                uploaded: true
+                            });
                         }
                     }
                 })
-            })
+            });
+            
         }
 
     }
