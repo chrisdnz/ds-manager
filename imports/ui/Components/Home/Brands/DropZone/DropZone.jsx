@@ -7,30 +7,33 @@ class DropZone extends Component {
         this.state = {
             files: []
         }
-        this.onDrop = this.onDrop.bind(this);
-        this.onOpenClick = this.onOpenClick.bind(this);
+        this.handleUpload = this.handleUpload.bind(this);
     }
-    onOpenClick () {
-      this.refs.dropzone.open();
-    }
-    onDrop (files) {
-        this.setState({
-          files: files
-        });
-      console.log('Received files: ', files);
-      _.each(files, function(file) {
-            file.owner = Meteor.userId(); //before upload also save the owner of that file
-            Images.insert(file, function(err, fileObj) {
-                if (err) {
-                    console.log(err); //in case there is an error, log it to the console
-                } else {
-                    toastr.success("Archivo Subido", "Exito");
-                    //the image upload is done successfully.
-                    //you can use this callback to add the id of your file into another collection
-                    //for this you can use fileObj._id to get the id of the file
-                }
+
+    handleUpload(files) {
+        // $(window).bind('beforeunload', function(){
+        //     return 'Su archivo no se ha guardado!'
+        // });
+
+        let componentRef = this;
+        for(var i = 0; i < files.length; i++) {
+            Images.insert(files.item(i), function(err, image){
+                var cursor = Images.find({_id: image._id});
+                var liveQuery = cursor.observe({
+                    changed: function(newDoc, oldDoc) {
+                        if(newDoc.isUploaded){
+                            liveQuery.stop();
+                            componentRef.setState({
+                                uploaded: true
+                            });
+                        }
+                    }
+                })
             });
-        });
+
+        }
+
+
     }
 
     render() {
