@@ -33,13 +33,18 @@ class DropZone extends Component {
             event.preventDefault();
             event.stopPropagation();
         });
+        $('#dnd').on('dragleave', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            $('#dnd').removeClass("hover");
+        });
         $('#dnd').on('drop', function(event) {
             if(event.originalEvent.dataTransfer){
                 if(event.originalEvent.dataTransfer.files.length) {
                     event.preventDefault();
                     event.stopPropagation();
                     componentRef.handleUpload(event.originalEvent.dataTransfer.files);
-                }   
+                }
             }
         });
     }
@@ -65,9 +70,9 @@ class DropZone extends Component {
                     }
                 })
             });
-            
-        }
 
+        }
+        $('#dnd').removeClass("hover");
     }
     render() {
         let options = {
