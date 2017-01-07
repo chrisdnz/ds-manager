@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import DropZone from './DropZone/DropZone.jsx';
+import { createContainer } from 'meteor/react-meteor-data';
 
 class Brands extends Component {
     constructor(props) {
@@ -30,4 +31,9 @@ Brands.defaultProps = {
     visibility: false
 }
 
-export default Brands;
+export default createContainer(props=> {
+    Meteor.subscribe("files.all");
+    return {
+        images: Images.find({}).fetch()
+    }
+}, Brands);
