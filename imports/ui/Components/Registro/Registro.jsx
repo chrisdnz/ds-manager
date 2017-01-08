@@ -25,7 +25,7 @@ class Registro extends Component {
                 Alert.error('El usuario que ingreso ya existe!', {
                     position: 'bottom-right',
                     effect: 'slide',
-                    timeout: 'none'
+                    timeout: 2500
                 });
             }else{
                 FlowRouter.go('/home');

@@ -62,6 +62,7 @@ h1{
 	color: #ffffff;
 	transition: 0.3s 0.2s all;
 	overflow: auto;
+	/*overflow-y: scroll;*/
 }
 
 body{
@@ -699,4 +700,50 @@ iframe.iframe{
     color: #aaa;
     font-size: 10px;
     text-align: right;
+}
+.ads {
+	max-width: 100%;
+	/*overflow: auto;*/
+}
+.ads .ad-background {
+	position: relative;
+	margin: 10px 4px;
+	border-radius: 5px;
+	display: inline-block;
+	padding-top: 50px;
+	box-sizing:border-box;
+	line-height: 30px;
+	font-size: 48px;
+	height: 180px;
+	width: 250px;
+	background-color: rgba(29,0,02,0.8);
+	text-align: center;
+}
+.ads .ad-background .adImage {
+	height: 180px;
+	width: 250px;
+	background-size: cover;
+	background-image: url(/images/background-test.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	border-radius: 5px;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	transition: 0.3s all;
+}
+.ads .ad-background:nth-of-type(1) {
+	margin-left: 0;
+}
+.ads .ad-background:nth-of-type(4) {
+	margin-left: 0;
+}
+.ads .ad-background small {
+	display: block;
+	font-size: 16px;
+}
+.ads .ad-background:hover span.adImage {
+	opacity: 0.1;
+	cursor: pointer;
 }
