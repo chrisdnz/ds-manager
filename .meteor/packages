@@ -29,3 +29,5 @@ aldeed:collection2
 cfs:gridfs
 cfs:standard-packages
 chrismbeckett:toastr
+react-meteor-data
+matdutour:popup-confirm
