@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Loader from 'react-loader';
+import { createContainer } from 'meteor/react-meteor-data';
 
 class DropZone extends Component {
     constructor(props) {
@@ -95,4 +96,9 @@ class DropZone extends Component {
     }
 }
 
-export default DropZone;
+export default createContainer(props=>{
+    Meteor.subscribe("files.all");
+    return {
+        images: Images.find({}).fetch()
+    }
+}, DropZone);

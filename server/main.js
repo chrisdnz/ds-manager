@@ -6,6 +6,14 @@ Meteor.startup(() => {
             /*Por seguridad podriamos implementar la subida
               del archivo en el server, es opcional
             */
+        },
+        deleteImage:(imageRef) => {
+            if(Meteor.userId){
+                Images.remove({_id: imageRef});
+                return "ok";
+            }else{
+                throw new Meteor.Error("No hay usuario");
+            }
         }
     })
 });
