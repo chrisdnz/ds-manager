@@ -16,7 +16,7 @@ class Imageitem extends Component {
             success: true,
             focus: "cancel"
         }, function (ok) {
-            Meteor.call("deleteImage", componentRef.props.image._id, (err, res)=> {
+            Meteor.call("deleteImage", componentRef.props.codigo.Codigo, (err, res)=> {
                 if(!err) {
                     Alert.success('Eliminada!', {
                         position: 'bottom-right',
@@ -33,7 +33,7 @@ class Imageitem extends Component {
         return (
             <li className="ad-background" onClick={this.handleDeleteImage}>
                 <span className="adImage" style={{
-                    backgroundImage: `url(http://localhost:4000/cfs/files/Images/${this.props.image._id})`
+                    backgroundImage: `url(http://localhost:4000/cfs/files/Images/${this.props.codigo.Codigo})`
                 }}>
                 </span>
                 <i className="icojam_trash_1"></i>

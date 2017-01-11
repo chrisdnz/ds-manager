@@ -6,8 +6,8 @@ class Imagerow extends Component {
     render() {
         return (
             <div className="ads">
-                {this.props.images.map(image =>
-                    <Imageitem image={image} key={image._id}/>
+                {this.props.codigos.map(codigo =>
+                    <Imageitem codigo={codigo} key={codigo.Codigo}/>
                 )}
             </div>
         );
@@ -18,6 +18,7 @@ export default createContainer(props => {
     let data = Meteor.subscribe("files.all");
     return {
         images: Images.find({}).fetch(),
+        codigos: Codigos.find({}).fetch(),
         ready: data.ready()
     }
 }, Imagerow)
