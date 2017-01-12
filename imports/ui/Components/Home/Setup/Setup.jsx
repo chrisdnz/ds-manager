@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import './slider.js';
+import Alert from 'react-s-alert';
+import '../../../../api/Ads';
+import { createContainer } from 'meteor/react-meteor-data';
 
 class Setup extends Component {
     constructor(props) {
@@ -9,6 +12,7 @@ class Setup extends Component {
         $(".slider").PPredraw();
     }
     componentDidMount() {
+        let componentRef = this;
         $(".slider").PPSlider({
             setValue: function(elem, value){
                 console.log(`Prueba: ${value}`);
@@ -18,6 +22,21 @@ class Setup extends Component {
                     value:val
                 };
                 console.dir(data);
+                Meteor.call("timeoutAd", val, componentRef.props.ads[0]._id, (err, res)=> {
+                    if(!err){
+                      Alert.info(`Timer actualizado a ${value} segundos`, {
+                          position: 'bottom-right',
+                          effect: 'slide',
+                          timeout: 3000
+                      });
+                    }else{
+                      Alert.error('No se pudo actualizar su timer', {
+                          position: 'bottom-right',
+                          effect: 'slide',
+                          timeout: 2500
+                      });
+                    }
+                })
             }
         });
         $('#optionsContainer').addClass('hidden');
@@ -38,7 +57,14 @@ class Setup extends Component {
                 <div className="column">
                     <span className="label">Tiempo por cada anuncio</span>
                     <div className="row">
-                        <div><input className="slider" type="hidden" value="5" data-val="" data-id="general"/><span className="qty">5s.</span></div>
+                        <div><input
+                            className="slider"
+                            type="hidden"
+                            value={this.props.ads.length > 0 && (this.props.ads[0].timeOut/1000)}
+                            data-val=""
+                            data-id="general"/>
+                          <span className="qty">{this.props.ads.length > 0 && (this.props.ads[0].timeOut/1000)}s.</span>
+                        </div>
                     </div>
                     <br/>
                 </div>
@@ -48,4 +74,9 @@ class Setup extends Component {
     }
 }
 
-export default Setup;
+export default createContainer(props => {
+    Meteor.subscribe("ads");
+    return {
+        ads: Ad.find({}).fetch()
+    }
+}, Setup);
