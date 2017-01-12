@@ -16,17 +16,19 @@ class Imageitem extends Component {
             success: true,
             focus: "cancel"
         }, function (ok) {
-            Meteor.call("deleteImage", componentRef.props.codigo.Codigo, (err, res)=> {
-                if(!err) {
-                    Alert.success('Eliminada!', {
-                        position: 'bottom-right',
-                        effect: 'slide',
-                        timeout: 2500
-                    });
-                }else{
-                    console.log(err);
-                }
-            });
+            if(ok){
+              Meteor.call("deleteImage", componentRef.props.codigo.Codigo, (err, res)=> {
+                  if(!err) {
+                      Alert.success('Eliminada!', {
+                          position: 'bottom-right',
+                          effect: 'slide',
+                          timeout: 2500
+                      });
+                  }else{
+                      console.log(err);
+                  }
+              });
+            }
         });
     }
     render() {

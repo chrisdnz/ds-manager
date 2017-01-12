@@ -10,6 +10,7 @@ Meteor.startup(() => {
         deleteImage:(imageRef) => {
             if(Meteor.userId){
                 Images.remove({_id: imageRef});
+                Codigos.remove({Codigo: imageRef});
                 return "ok";
             }else{
                 throw new Meteor.Error("No hay usuario");

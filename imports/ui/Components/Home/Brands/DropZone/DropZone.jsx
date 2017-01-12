@@ -71,18 +71,9 @@ class DropZone extends Component {
                     }
                 })
                 var intervalHandle = Meteor.setInterval(function () {
-                    console.log("Inside interval");
                     if (image.hasStored("container")) {
-                        // File has been uploaded and stored. Can safely display it on the page.
-                        // var uploadedImage = {
-                        //     "profile.image.url": "/cfs/files/profileImages/" + fileObj._id
-                        // };
-                        // Meteor.users.update(userId, {$set: uploadedImage});
-                        //
-                        // Session.set('profilePhotoUploaded', true);
                         console.log(image._id);
                         Codigos.insert({Codigo: image._id});
-                        // file has stored, close out interval
                         Meteor.clearInterval(intervalHandle);
                     }
                 }, 1000);
@@ -114,6 +105,7 @@ class DropZone extends Component {
 
 export default createContainer(props=>{
     Meteor.subscribe("files.all");
+    Meteor.subscribe("codigos");
     return {
         images: Images.find({}).fetch(),
         codigos: Codigos.find({}).fetch()
