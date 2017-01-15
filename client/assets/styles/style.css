@@ -703,7 +703,9 @@ iframe.iframe{
 }
 .ads {
 	max-width: 100%;
-	/*overflow: auto;*/
+	max-height: 525px;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 .ads .ad-background {
 	position: relative;
