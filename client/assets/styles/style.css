@@ -53,10 +53,10 @@ h1{
 .container{
 	position: relative;
 	display: inline-block;
-	width: calc(100% - 310px - 354px);
+	width: calc(100% - 580px);
 	max-height: 100%;
 	box-sizing:border-box;
-	padding: 20px;
+	padding: 10px;
 	padding-top: 5px;
 	padding-bottom: 50px;
 	color: #ffffff;
@@ -748,4 +748,19 @@ iframe.iframe{
 .ads .ad-background:hover span.adImage {
 	opacity: 0.1;
 	cursor: pointer;
+}
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.thumbnail {
+  width: 215px;
+  height: 165px
+}
+
+.thumbnail .photo{
+  width: 205px;
+  height: 110px
 }
