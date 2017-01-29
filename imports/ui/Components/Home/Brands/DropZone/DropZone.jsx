@@ -73,7 +73,7 @@ class DropZone extends Component {
                 var intervalHandle = Meteor.setInterval(function () {
                     if (image.hasStored("container")) {
                         console.log(image._id);
-                        Codigos.insert({Codigo: image._id});
+                        Codigos.insert({Codigo: image._id, Time: 3000});
                         Meteor.clearInterval(intervalHandle);
                     }
                 }, 1000);

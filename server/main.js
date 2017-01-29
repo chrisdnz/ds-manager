@@ -25,6 +25,14 @@ Meteor.startup(() => {
             }else{
                 throw new Meteor.Error("No-autorizado");
             }
+        },
+        timeoutbyAd:(imageRef,timeout) => {
+            if(Meteor.userId){
+                Codigos.update({_id: imageRef._id}, {$set: {Time: timeout}});
+                return "Ok";
+            }else{
+                throw new Meteor.Error("No-autorizado");
+            }
         }
     })
 });

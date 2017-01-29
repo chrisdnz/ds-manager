@@ -37,7 +37,6 @@ cfs:tempstore@0.1.5
 cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.2.4
-chrismbeckett:toastr@2.1.2_1
 ddp@1.2.5
 ddp-client@1.2.9
 ddp-common@1.2.8
@@ -125,6 +124,7 @@ templating-runtime@1.2.15
 templating-tools@1.0.5
 tmeasday:check-npm-versions@0.2.0
 tracker@1.1.1
+twbs:bootstrap@3.3.6
 ui@1.0.12
 underscore@1.0.10
 url@1.0.11

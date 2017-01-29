@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './slider.js';
 import Alert from 'react-s-alert';
 import '../../../../api/Ads';
+import ImageList from './image_list/image_list';
 import { createContainer } from 'meteor/react-meteor-data';
 
 class Setup extends Component {
@@ -55,7 +56,7 @@ class Setup extends Component {
             <div id="optionsContainer" className="animated fadeIn">
                 <h1>Opciones</h1>
                 <div className="column">
-                    <span className="label">Tiempo por cada anuncio</span>
+                    <span className="label">Tiempo predeterminado</span>
                     <div className="row">
                         <div><input
                             className="slider"
@@ -66,9 +67,11 @@ class Setup extends Component {
                           <span className="qty">{this.props.ads.length > 0 && (this.props.ads[0].timeOut/1000)}s.</span>
                         </div>
                     </div>
-                    <br/>
+                    <br/><br/><br/>
                 </div>
                 <div className="column"></div>
+                <br/><br/><br/><br/><br/><br/>
+                <ImageList />
             </div>
         );
     }
@@ -77,6 +80,8 @@ class Setup extends Component {
 export default createContainer(props => {
     Meteor.subscribe("ads");
     return {
-        ads: Ad.find({}).fetch()
+        ads: Ad.find({}).fetch(),
+        images: Images.find({}).fetch(),
+        codigos: Codigos.find({}).fetch()
     }
 }, Setup);
