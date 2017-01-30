@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import Imageitem from '../Imageitem/Imageitem';
+import ImageDetail from '../image_detail/image_detail';
 import { createContainer } from 'meteor/react-meteor-data';
 
-class Imagerow extends Component {
+class ImageList extends Component {
     render() {
         return (
-            <div className="ads">
+            <div className='image-list'>
                 {this.props.codigos.map(codigo =>
-                    <Imageitem codigo={codigo} key={codigo._id}/>
+                    <ImageDetail codigo={codigo} key={codigo._id}/>
                 )}
             </div>
         );
@@ -21,4 +21,4 @@ export default createContainer(props => {
         codigos: Codigos.find({}).fetch(),
         ready: data.ready()
     }
-}, Imagerow)
+}, ImageList)
