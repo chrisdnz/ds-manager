@@ -23,9 +23,8 @@ class SliderTest extends Component {
     let componentRef = this;
     let value = event.target.value;
     this.setState({firstValue: value});
-    //console.log({value: value});
     Meteor.call("timeoutbyAd", componentRef.props.codigo, value*1000, (err, res)=> {
-
+      
     })
   }
   render () {

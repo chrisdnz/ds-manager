@@ -19,8 +19,8 @@ Meteor.startup(() => {
         },
         timeoutAd:(timeout, id) => {
             if(Meteor.userId){
-                // Ad.insert({timeOut: timeout});
                 Ad.update({_id: id}, {$set: {timeOut: timeout}});
+                Codigos.update({}, {$set: {Time: timeout}}, {multi:true});
                 return "Ok";
             }else{
                 throw new Meteor.Error("No-autorizado");
