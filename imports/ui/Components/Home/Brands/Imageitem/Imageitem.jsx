@@ -35,7 +35,7 @@ class Imageitem extends Component {
         return (
             <li className="ad-background" onClick={this.handleDeleteImage}>
                 <span className="adImage" style={{
-                    backgroundImage: `url(http://localhost:4000/cfs/files/Images/${this.props.codigo.Codigo})`
+                    backgroundImage: `url(https://unitec-anuncios.herokuapp.com/cfs/files/Images/${this.props.codigo.Codigo})`
                 }}>
                 </span>
                 <i className="icojam_trash_1"></i>
