@@ -6,6 +6,7 @@ import { mount } from 'react-mounter';
 import Layout from '../ui/Layout/Layout';
 import Login from '../ui/Components/Login/Login';
 import Home from '../ui/Components/Home/Home';
+import App from '../ui/Components/cliente/App.jsx';
 
 FlowRouter.route('/', {
     triggersEnter:[(context, redirect)=> {
@@ -29,6 +30,14 @@ FlowRouter.route('/home', {
     action: (params, queryParams)=> {
         mount(Layout, {
             content: <Home />
+        })
+    }
+});
+
+FlowRouter.route('/cliente/preview', {
+    action: (params, queryParams)=> {
+        mount(Layout, {
+            content: <App />
         })
     }
 });

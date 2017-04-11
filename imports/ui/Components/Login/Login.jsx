@@ -40,7 +40,7 @@ class Login extends Component {
                 <div className="bgVideo animated slow fadeIn">
                     <div className="videoContainer">
                         <video id="topVideo" autoPlay loop muted preload="auto">
-                            <source id="topVideoSrc" src="/video/WelcomeUnitec.mp4" type="video/mp4"/>
+                            <source id="topVideoSrc" src="https://unitec-anuncios.herokuapp.com/video/WelcomeUnitec.mp4"/>
                             Su navegador no soporta video
                         </video>
                     </div>
@@ -60,6 +60,7 @@ class Login extends Component {
                         </div>
                     </form>
                 </div>
+                <div className="footer">designed &amp; developed by: <a href="#">Najera&Sánchez</a></div>
             </div>
         );
     }

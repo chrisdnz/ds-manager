@@ -13,7 +13,7 @@ class ImageDetail extends Component {
   render() {
     return (
       <div className='thumbnail'>
-        <img className='photo' src={`https://unitec-anuncios.herokuapp.com/cfs/files/Images/${this.props.codigo.Codigo}`}/>
+        <img className='photo' src={`http://fia.unitec.edu/cfs/files/Images/${this.props.codigo.Codigo}`}/>
         <div className='caption'>
           <SliderTest codigo = {this.props.codigo} tiempo = {this.props.codigo.Time/1000}/>
         </div>
