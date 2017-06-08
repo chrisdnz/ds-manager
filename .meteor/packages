@@ -32,3 +32,4 @@ react-meteor-data
 matdutour:popup-confirm
 twbs:bootstrap
 tomi:upload-server
+konecty:mongo-counter

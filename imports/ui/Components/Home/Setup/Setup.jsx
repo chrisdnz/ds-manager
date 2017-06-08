@@ -55,7 +55,7 @@ class Setup extends Component {
         return (
             <div id="optionsContainer" className="animated fadeIn">
                 <h1>Opciones</h1>
-                <div className="column">
+                <div className="row setupSlider hidden">
                     <span className="label">Tiempo predeterminado</span>
                     <div className="row">
                         <div><input
@@ -66,12 +66,11 @@ class Setup extends Component {
                             data-id="general"/>
                           <span className="qty">{this.props.ads.length > 0 && (this.props.ads[0].timeOut/1000)}s.</span>
                         </div>
-                    </div>
-                    <br/><br/><br/>
+                    </div>       
                 </div>
-                <div className="column"></div>
-                <br/><br/><br/><br/><br/><br/>
+                <div className='row setupMedia'>
                 <ImageList />
+                </div>
             </div>
         );
     }

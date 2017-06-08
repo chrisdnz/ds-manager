@@ -18,7 +18,7 @@ export default createContainer(props => {
     let data = Meteor.subscribe("files.all");
     return {
         images: Images.find({}).fetch(),
-        codigos: Codigos.find({}).fetch(),
+        codigos: Codigos.find({}, { sort: { Order: 1 } }).fetch(),
         ready: data.ready()
     }
 }, Imagerow)

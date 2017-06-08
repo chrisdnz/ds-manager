@@ -58,7 +58,9 @@ class DropZone extends Component {
         });
         let componentRef = this;
         for(var i = 0; i < files.length; i++) {
+            
             Images.insert(files.item(i), function(err, image){
+                
                 var cursor = Images.find({_id: image._id});
                 var liveQuery = cursor.observe({
                     changed: function(newDoc, oldDoc) {
@@ -73,8 +75,19 @@ class DropZone extends Component {
                 var intervalHandle = Meteor.setInterval(function () {
                     if (image.hasStored("container")) {
                         console.log(image._id);
-                        Codigos.insert({Codigo: image._id, Time: 3000});
+                        Meteor.call("incrementarContador",  (err, res)=> {
+                  if(!err) {
+                      console.log('====================================')
+                      console.log('incrementado',res)
+                      console.log('====================================')
+                      Codigos.insert({Codigo: image._id, Time: 3000, Order:res});
+                        
                         Meteor.clearInterval(intervalHandle);
+                  }else{
+                      console.log(err);
+                  }
+              });
+                        
                     }
                 }, 1000);
             });

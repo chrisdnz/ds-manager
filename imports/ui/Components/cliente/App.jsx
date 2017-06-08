@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 import { createContainer } from 'meteor/react-meteor-data';
 import './cycle.js';
-
+let SELF;
 class App extends Component {
   constructor(props) {
     super(props);
+    SELF=this;
     this.state = {
+      ordering: -1,
       images: [
         {
           id: "ejYv7HrKtZYvPiq4c",
@@ -30,10 +33,20 @@ class App extends Component {
       ]
     }
   }
+  componentDidMount() {
+    var cursor = Codigos.find();
+cursor.observeChanges({
+    changed(newDocument, oldDocument){
+
+    }
+});
+
+  }
 
   componentDidUpdate() {
-    $('.ads').cycle({
-      fx: 'toss',
+    $('.carousel').cycle({
+      fx: 'fade',
+      speed:  500,
       timeoutFn: function (curr, next, opts, fwd) {
         return parseInt($(curr).attr('data-duration'));
       }
@@ -44,11 +57,12 @@ class App extends Component {
     let i=0;
     return (
       <div className="cliente-container">
-        <div className="ads">
+        <div className="carousel">
           {this.props.codigos.map(image=> (
-            <img src={`http://fia.unitec.edu/cfs/files/Images/${image.Codigo}`} data-duration={image.Time} key={image._id}></img>
+            <img src={`http://localhost:3000/cfs/files/Images/${image.Codigo}`} data-duration={image.Time} key={image._id}></img>
           ))}
         </div>
+        <div className='hidden'>{this.state.ordering}</div>
       </div>
     );
   }
@@ -57,7 +71,7 @@ export default createContainer(props => {
   let data = Meteor.subscribe("codigos");
   let time = Meteor.subscribe("ads");
   return {
-    codigos: Codigos.find().fetch(),
+    codigos: Codigos.find({}, { sort: { Order: 1 } }).fetch(),
     ads: Ad.find({}).fetch(),
   }
 }, App);
