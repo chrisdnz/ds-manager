@@ -3,6 +3,30 @@ import '../imports/api/Ads';
 
 Meteor.startup(() => {
     Meteor.methods({
+		insertTV:(tvname) => {
+			if (Meteor.userId) {
+				if (TVs.find({Name:tvname}).fetch().length>0) {
+					throw new Meteor.Error("Elige otro nombre, Televisor ya existe.");
+				} else {
+					TVs.insert({Name:tvname});
+				}
+				
+			} else {
+				throw new Meteor.Error("No-autorizado");
+			}
+		},
+		addTVImage:(tvname,imagecode) => {
+			if (Meteor.userId) {
+				if (TVsImages.find({tvname:tvname, imagecode:imagecode}).fetch().length>0) {
+					throw new Meteor.Error("Imagen ya está agregada.");
+				} else {
+					TVsImages.insert({tvname,imagecode,time:3000,order:1});
+				}
+				
+			} else {
+				throw new Meteor.Error("No-autorizado");
+			}
+		},
         uploadFile:(fileInfo) => {
             /*Por seguridad podriamos implementar la subida
               del archivo en el server, es opcional
@@ -28,7 +52,15 @@ Meteor.startup(() => {
         },
         timeoutbyAd:(imageRef,timeout) => {
             if(Meteor.userId){
-                Codigos.update({_id: imageRef._id}, {$set: {Time: timeout}});
+                Codigos.update({Codigo: imageRef}, {$set: {Time: timeout}});
+                return "Ok";
+            }else{
+                throw new Meteor.Error("No-autorizado");
+            }
+        },
+		timeoutbyAdbyTV:(imageRef,tvname, timeout) => {
+            if(Meteor.userId){
+                TVsImages.update({tvname:tvname,imagecode:imageRef}, {$set: {time: timeout}});
                 return "Ok";
             }else{
                 throw new Meteor.Error("No-autorizado");

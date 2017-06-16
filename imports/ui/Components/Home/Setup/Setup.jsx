@@ -40,14 +40,13 @@ class Setup extends Component {
                 })
             }
         });
-        $('#optionsContainer').addClass('hidden');
     }
     shouldComponentUpdate(nextProps, nextState) {
         if(nextProps.visibility){
-            $('#optionsContainer').removeClass('hidden');
+            
             return true;
         }else{
-            $('#optionsContainer').addClass('hidden');
+            
             return false;
         }
     }

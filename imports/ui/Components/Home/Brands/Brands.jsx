@@ -7,18 +7,6 @@ class Brands extends Component {
     constructor(props) {
         super(props);
     }
-    componentDidMount() {
-        $('#dropZone').addClass('hidden');
-    }
-    shouldComponentUpdate(nextProps, nextState) {
-        if(nextProps.visibility){
-            $('#dropZone').removeClass('hidden');
-            return true;
-        }else{
-            $('#dropZone').addClass('hidden');
-            return false;
-        }
-    }
     render() {
         return (
             <div id="dropZone" className="animated fadeIn">
@@ -29,9 +17,7 @@ class Brands extends Component {
         );
     }
 }
-Brands.defaultProps = {
-    visibility: false
-}
+
 
 export default createContainer(props=> {
     Meteor.subscribe("files.all");

@@ -12,10 +12,10 @@ class ImageDetail extends Component {
 
   render() {
     return (
-      <div className='thumbnail' data-id={ this.props.codigo._id } key={ this.props.codigo._id }>
-        <img className='photo' src={`http://localhost:3000/cfs/files/Images/${this.props.codigo.Codigo}`}/>
+      <div className='thumbnail' data-id={ this.props.imagecode } key={ this.props.imagecode}>
+        <img className='photo' src={`http://localhost:3000/cfs/files/Images/${this.props.imagecode}`}/>
         <div className='caption'>
-          <SliderTest codigo = {this.props.codigo} tiempo = {this.props.codigo.Time/1000}/>
+          <SliderTest imagecode = {this.props.imagecode} tvname={this.props.tvname} tiempo = {this.props.tiempo}/>
         </div>
       </div>
     );
