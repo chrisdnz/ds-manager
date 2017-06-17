@@ -88,10 +88,17 @@ FlowRouter.route('/home/:tvName', {
     }
 });
 
-FlowRouter.route('/cliente/preview', {
+FlowRouter.route('/preview', {
     action: (params, queryParams)=> {
         mount(LayoutPublic, {
             content: <App />
+        })
+    }
+});
+FlowRouter.route('/cliente/:tvName', {
+    action: (params, queryParams)=> {
+        mount(LayoutPublic, {
+            content: <App name={params.tvName}/>
         })
     }
 });

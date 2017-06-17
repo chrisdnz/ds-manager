@@ -20,8 +20,7 @@ class SideBar extends Component {
                 <span className="subTitle">Menu Editor</span>
                 <div className="sideMenu topPadding">
                     <ul>
-                        <li id="promos" onClick={this.onPromoClick}><i className="icojam_calendar_5"></i> Asignar</li>
-                        <li id="options" onClick={this.onConfigClick}><i className="icojam_options2"></i> Configurar</li>
+                        <li id="options" onClick={this.onConfigClick}><i className="icojam_player_1"></i> Contenido</li>
                         <li id="tvs" onClick={this.onTVsClick}><i className="icojam_tv_wide"></i> Televisores</li>
                     </ul>
                 </div>

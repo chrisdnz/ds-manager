@@ -54,7 +54,7 @@ class TVView extends Component {
                         <h2> Global </h2> 
                         {this.props.codigos.length > 0 ? 
                             <Sortable
-                                className = "image-list"
+                                className = "image-list tvs"
                                 onChange = {updateMediaOrder } 
                                 options={{
                                     animation: 150,
@@ -94,9 +94,17 @@ class TVView extends Component {
                                                 var tvname = FlowRouter.getParam("tvName");
                                                 Meteor.call("addTVImage",  tvname, imagecode, 3000, (err, res) => {
                                                     if (!err) {
-
+                                                        Alert.success(`Imagen agregada`, {
+                                                        position: 'bottom-right',
+                                                        effect: 'slide',
+                                                        timeout: 1000
+                                                        });
                                                     } else {
-                                                        console.log(err);
+                                                        Alert.error(err.message, {
+                                                        position: 'bottom-right',
+                                                        effect: 'slide',
+                                                        timeout: 2000
+                                                        });
                                                     }
                                                 });
 	                                }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import SliderTest from './SliderTest/SliderTest'
+import Imageitem from '../../Brands/Imageitem/Imageitem';
 import Alert from 'react-s-alert';
 
 class ImageDetail extends Component {
@@ -12,8 +13,8 @@ class ImageDetail extends Component {
 
   render() {
     return (
-      <div className='thumbnail' data-id={ this.props.imagecode } key={ this.props.imagecode}>
-        <img className='photo' src={`http://localhost:3000/cfs/files/Images/${this.props.imagecode}`}/>
+      <div className='thumbnail ads' data-id={ this.props.imagecode } key={ this.props.imagecode}>
+        <Imageitem imagecode={this.props.imagecode} tvname={this.props.tvname} />
         <div className='caption'>
           <SliderTest imagecode = {this.props.imagecode} tvname={this.props.tvname} tiempo = {this.props.tiempo}/>
         </div>

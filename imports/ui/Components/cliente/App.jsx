@@ -58,7 +58,9 @@ cursor.observeChanges({
     return (
       <div className="cliente-container">
         <div className="carousel">
-          {this.props.codigos.map(image=> (
+          {this.props.tvname!=undefined ? this.props.tvsimages.map(image=> (
+            <img src={`http://localhost:3000/cfs/files/Images/${image.imagecode}`} data-duration={image.time} key={image._id}></img>
+          )): this.props.codigos.map(image=> (
             <img src={`http://localhost:3000/cfs/files/Images/${image.Codigo}`} data-duration={image.Time} key={image._id}></img>
           ))}
         </div>
@@ -70,8 +72,13 @@ cursor.observeChanges({
 export default createContainer(props => {
   let data = Meteor.subscribe("codigos");
   let time = Meteor.subscribe("ads");
+  var tvname = FlowRouter.getParam("tvName");
+  let data2 = Meteor.subscribe('TVsImages.view', tvname);
+  console.log(tvname);
   return {
     codigos: Codigos.find({}, { sort: { Order: 1 } }).fetch(),
+    tvsimages: TVsImages.find({}, { sort: { order: 1 }}).fetch(tvname),
+    tvname:tvname,
     ads: Ad.find({}).fetch(),
   }
 }, App);

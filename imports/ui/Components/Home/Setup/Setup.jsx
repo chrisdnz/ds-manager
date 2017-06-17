@@ -3,6 +3,7 @@ import './slider.js';
 import Alert from 'react-s-alert';
 import '../../../../api/Ads';
 import ImageList from './image_list/image_list';
+import DropZone from '../Brands/DropZone/DropZone';
 import { createContainer } from 'meteor/react-meteor-data';
 
 class Setup extends Component {
@@ -53,7 +54,7 @@ class Setup extends Component {
     render() {
         return (
             <div id="optionsContainer" className="animated fadeIn">
-                <h1>Opciones</h1>
+                <h1>Contenido Global</h1>
                 <div className="row setupSlider hidden">
                     <span className="label">Tiempo predeterminado</span>
                     <div className="row">
@@ -68,6 +69,7 @@ class Setup extends Component {
                     </div>       
                 </div>
                 <div className='row setupMedia'>
+                <DropZone/>
                 <ImageList />
                 </div>
             </div>

@@ -36,6 +36,15 @@ Meteor.startup(() => {
             if(Meteor.userId){
                 Images.remove({_id: imageRef});
                 Codigos.remove({Codigo: imageRef});
+				TVsImages.remove({imagecode:imageRef})
+                return "ok";
+            }else{
+                throw new Meteor.Error("No-autorizado");
+            }
+        },
+		deleteImageTV:(imageRef,tvname) => {
+            if(Meteor.userId){
+				TVsImages.remove({imagecode:imageRef,tvname:tvname})
                 return "ok";
             }else{
                 throw new Meteor.Error("No-autorizado");

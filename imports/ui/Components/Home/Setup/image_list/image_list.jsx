@@ -22,7 +22,7 @@ class ImageList extends Component {
     render() {
         return (
              this.props.codigos.length > 0 ? <Sortable
-    className="image-list"
+    className="image-list global"
     onChange={ updateMediaOrder }
   >
                 {this.props.codigos.map(codigo =>

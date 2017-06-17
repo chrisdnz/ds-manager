@@ -7,7 +7,7 @@ class Imagerow extends Component {
         return (
             <div className="ads">
                 {this.props.codigos.map(codigo =>
-                    <Imageitem codigo={codigo} key={codigo._id}/>
+                    <Imageitem imagecode={codigo.Codigo} key={codigo._id}/>
                 )}
             </div>
         );
