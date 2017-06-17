@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 import { createContainer } from 'meteor/react-meteor-data';
 import './cycle.js';
-
+let SELF;
 class App extends Component {
   constructor(props) {
     super(props);
+    SELF=this;
     this.state = {
+      ordering: -1,
       images: [
         {
           id: "ejYv7HrKtZYvPiq4c",
@@ -30,10 +33,20 @@ class App extends Component {
       ]
     }
   }
+  componentDidMount() {
+    var cursor = Codigos.find();
+cursor.observeChanges({
+    changed(newDocument, oldDocument){
+
+    }
+});
+
+  }
 
   componentDidUpdate() {
-    $('.ads').cycle({
-      fx: 'toss',
+    $('.carousel').cycle({
+      fx: 'fade',
+      speed:  500,
       timeoutFn: function (curr, next, opts, fwd) {
         return parseInt($(curr).attr('data-duration'));
       }
@@ -44,11 +57,14 @@ class App extends Component {
     let i=0;
     return (
       <div className="cliente-container">
-        <div className="ads">
-          {this.props.codigos.map(image=> (
-            <img src={`http://fia.unitec.edu/cfs/files/Images/${image.Codigo}`} data-duration={image.Time} key={image._id}></img>
+        <div className="carousel">
+          {this.props.tvname!=undefined ? this.props.tvsimages.map(image=> (
+            <img src={`http://localhost:3000/cfs/files/Images/${image.imagecode}`} data-duration={image.time} key={image._id}></img>
+          )): this.props.codigos.map(image=> (
+            <img src={`http://localhost:3000/cfs/files/Images/${image.Codigo}`} data-duration={image.Time} key={image._id}></img>
           ))}
         </div>
+        <div className='hidden'>{this.state.ordering}</div>
       </div>
     );
   }
@@ -56,8 +72,13 @@ class App extends Component {
 export default createContainer(props => {
   let data = Meteor.subscribe("codigos");
   let time = Meteor.subscribe("ads");
+  var tvname = FlowRouter.getParam("tvName");
+  let data2 = Meteor.subscribe('TVsImages.view', tvname);
+  console.log(tvname);
   return {
-    codigos: Codigos.find().fetch(),
+    codigos: Codigos.find({}, { sort: { Order: 1 } }).fetch(),
+    tvsimages: TVsImages.find({}, { sort: { order: 1 }}).fetch(tvname),
+    tvname:tvname,
     ads: Ad.find({}).fetch(),
   }
 }, App);

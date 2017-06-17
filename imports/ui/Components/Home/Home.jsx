@@ -4,39 +4,43 @@ import SideBar from './SideBar/SideBar';
 import Preview from './Preview/Preview';
 import Brands from './Brands/Brands.jsx';
 import Setup from './Setup/Setup.jsx';
+import TVs from './TVs/TVs.jsx';
+
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state ={
             promosView: false,
-            configView: false
+            configView: false,
+            tvsView: false
         }
     }
     handleClick(params) {
         if(params.view === 'promos'){
             this.setState({
                 promosView: true,
-                configView: false
+                configView: false,
+                tvsView: false
             });
         }else if(params.view === 'config'){
             this.setState({
                 promosView: false,
-                configView: true
+                configView: true,
+                tvsView:false
+            });
+        }else if (params.view === 'tvs') {
+            this.setState({
+                promosView: false,
+                configView: false,
+                tvsView:true
             });
         }
     }
     render() {
         return (
-            <div className="outerContainer animated fadeIn">
-                <div className="bg"></div>
-                <NavBar />
-                <SideBar handleClick={this.handleClick.bind(this)}/>
-                <div className="container">
-                    <Brands visibility={this.state.promosView}/>
-                    <Setup visibility={this.state.configView}/>
-                </div>
-                <Preview />
+            <div className="">
+               hello baby
             </div>
         );
     }

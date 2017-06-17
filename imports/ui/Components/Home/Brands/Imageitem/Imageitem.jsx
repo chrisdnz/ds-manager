@@ -17,7 +17,8 @@ class Imageitem extends Component {
             focus: "cancel"
         }, function (ok) {
             if(ok){
-              Meteor.call("deleteImage", componentRef.props.codigo.Codigo, (err, res)=> {
+                if (componentRef.props.tvname) {
+      Meteor.call("deleteImageTV", componentRef.props.imagecode, componentRef.props.tvname, (err, res)=> {
                   if(!err) {
                       Alert.success('Eliminada!', {
                           position: 'bottom-right',
@@ -28,6 +29,20 @@ class Imageitem extends Component {
                       console.log(err);
                   }
               });
+    } else {
+      Meteor.call("deleteImage", componentRef.props.imagecode, (err, res)=> {
+                  if(!err) {
+                      Alert.success('Eliminada!', {
+                          position: 'bottom-right',
+                          effect: 'slide',
+                          timeout: 2500
+                      });
+                  }else{
+                      console.log(err);
+                  }
+              });
+    }
+              
             }
         });
     }
@@ -35,7 +50,7 @@ class Imageitem extends Component {
         return (
             <li className="ad-background" onClick={this.handleDeleteImage}>
                 <span className="adImage" style={{
-                    backgroundImage: `url(http://fia.unitec.edu/cfs/files/Images/${this.props.codigo.Codigo})`
+                    backgroundImage: `url(http://localhost:3000/cfs/files/Images/${this.props.imagecode})`
                 }}>
                 </span>
                 <i className="icojam_trash_1"></i>

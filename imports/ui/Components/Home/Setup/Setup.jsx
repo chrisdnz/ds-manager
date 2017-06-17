@@ -3,6 +3,7 @@ import './slider.js';
 import Alert from 'react-s-alert';
 import '../../../../api/Ads';
 import ImageList from './image_list/image_list';
+import DropZone from '../Brands/DropZone/DropZone';
 import { createContainer } from 'meteor/react-meteor-data';
 
 class Setup extends Component {
@@ -40,22 +41,21 @@ class Setup extends Component {
                 })
             }
         });
-        $('#optionsContainer').addClass('hidden');
     }
     shouldComponentUpdate(nextProps, nextState) {
         if(nextProps.visibility){
-            $('#optionsContainer').removeClass('hidden');
+            
             return true;
         }else{
-            $('#optionsContainer').addClass('hidden');
+            
             return false;
         }
     }
     render() {
         return (
             <div id="optionsContainer" className="animated fadeIn">
-                <h1>Opciones</h1>
-                <div className="column">
+                <h1>Contenido Global</h1>
+                <div className="row setupSlider hidden">
                     <span className="label">Tiempo predeterminado</span>
                     <div className="row">
                         <div><input
@@ -66,12 +66,12 @@ class Setup extends Component {
                             data-id="general"/>
                           <span className="qty">{this.props.ads.length > 0 && (this.props.ads[0].timeOut/1000)}s.</span>
                         </div>
-                    </div>
-                    <br/><br/><br/>
+                    </div>       
                 </div>
-                <div className="column"></div>
-                <br/><br/><br/><br/><br/><br/>
+                <div className='row setupMedia'>
+                <DropZone/>
                 <ImageList />
+                </div>
             </div>
         );
     }

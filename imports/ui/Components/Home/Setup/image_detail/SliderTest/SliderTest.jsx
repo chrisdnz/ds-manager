@@ -10,7 +10,7 @@ class SliderTest extends Component {
       minValue: 1,
       maxValue: 60,
       step: 1,
-      inputValue: props.codigo.Time/1000,
+      inputValue: props.tiempo/1000,
       firstValue: null,
     };
 
@@ -31,7 +31,8 @@ class SliderTest extends Component {
     let componentRef = this;
     let value = event.target.value;
     this.setState({firstValue: value});
-    Meteor.call("timeoutbyAd", componentRef.props.codigo, value*1000, (err, res)=> {
+    if (this.props.tvname) {
+      Meteor.call("timeoutbyAdbyTV", componentRef.props.imagecode, componentRef.props.tvname, value*1000, (err, res)=> {
       if (!err) {
         Alert.info(`Timer actualizado a ${value} segundos`, {
           position: 'bottom-right',
@@ -40,6 +41,17 @@ class SliderTest extends Component {
         });
       }
     })
+    } else {
+      Meteor.call("timeoutbyAd", componentRef.props.imagecode, value*1000, (err, res)=> {
+      if (!err) {
+        Alert.info(`Timer actualizado a ${value} segundos`, {
+          position: 'bottom-right',
+          effect: 'slide',
+          timeout: 3000
+        });
+      }
+    })
+    }
   }
 
   render () {
