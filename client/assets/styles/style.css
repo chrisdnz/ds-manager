@@ -696,11 +696,18 @@ border: 1px solid rgba(255, 255, 255, 0.2);
 	margin-left: 0;
 	margin-right: 0;
 }
-.ads .ad-background small {
+.ads .ad-background  small {
 	display: block;
 	font-size: 16px;
 }
-.ads .ad-background:hover span.adImage {
+.ads .ad-background  i {
+	font-size: 16px;
+}
+.ads .ad-background div {
+	display: block;
+	font-size: 16px;
+}
+.ads .ad-background:hover img.adImage {
 	opacity: 0.1;
 	cursor: pointer;
 }
