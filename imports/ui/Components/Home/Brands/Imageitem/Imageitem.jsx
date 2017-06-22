@@ -6,10 +6,10 @@ class Imageitem extends Component {
         super(props);
         this.handleDeleteImage = this.handleDeleteImage.bind(this);
         this.handleLoadingImage = this.handleLoadingImage.bind(this);
-        this.state={loading:true}
+        this.state={loading:true,setClass:'adImage hidden'}
     }
     handleLoadingImage(){
-        this.setState({loading:false})
+        this.setState({loading:false, setClass:'adImage'})
     }
     handleDeleteImage(imageRef) {
         let componentRef = this;
@@ -74,11 +74,11 @@ class Imageitem extends Component {
             WebkitJustifyContent: 'center',
             justifyContent: 'center'
         };
-        let {loading} = this.state;
+        let {loading,setClass} = this.state;
         return (
             <li className="ad-background" onClick={this.handleDeleteImage}>
-                <img onLoad={this.handleLoadingImage} className="adImage" src={`http://localhost:3000/cfs/files/Images/${this.props.imagecode}`  }/>
-                {loading ? <div className='adImage' style={style}><Halogen.BounceLoader color={color}/></div>: 
+                <img onLoad={this.handleLoadingImage} className={setClass} src={`http://localhost:3000/cfs/files/Images/${this.props.imagecode}`  }/>
+                {loading ? <div className='adImage' style={style}><Halogen.MoonLoader color={color}/></div>: 
                 <div><i className="icojam_trash_1"></i>
                 <small>Eliminar</small></div>}
             </li>
