@@ -29,7 +29,14 @@ class TVList extends Component {
         event.preventDefault();
         let oldName = SELF.state.Name;
         let newName = SELF.refs.inputTVName.value
-        Meteor.call('editTV', oldName, newName, (err, res)=> {
+        if (newName == '') {
+            Alert.error("Debe ingresar un nombre", {
+                          position: 'bottom-right',
+                          effect: 'slide',
+                          timeout: 2500
+                      });
+        } else {
+            Meteor.call('editTV', oldName, newName, (err, res)=> {
                   if(!err) {
                       Alert.success('Editado con exito!', {
                           position: 'bottom-right',
@@ -45,6 +52,7 @@ class TVList extends Component {
                       });
                   }
               });   
+        }
     }
     handleRemove(event, Name) {
         event.preventDefault();
