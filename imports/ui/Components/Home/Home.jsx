@@ -39,8 +39,10 @@ class Home extends Component {
     }
     render() {
         return (
-            <div className="">
-               hello baby
+            <div className="container">
+                <div className="jumbotron">
+                    <h1>Bienvenido</h1>     
+                </div>
             </div>
         );
     }

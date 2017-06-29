@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Registro from '../Registro/Registro';
+
 
 class Login extends Component {
     constructor(props) {
@@ -17,12 +17,7 @@ class Login extends Component {
             user: `${this.refs.username.value}@unitec.edu`,
             password: this.refs.password.value
         }
-        if(credentials.user === 'rec@unitec.edu' && credentials.password === '') {
-            this.setState({
-                regVisibility: 'animated bounceInDown',
-                loginVisibility: 'hidden'
-            });
-        }else{
+        
             Meteor.loginWithPassword(credentials.user, credentials.password, (err)=> {
                 if(!err) {
                     FlowRouter.go('/home');
@@ -32,7 +27,6 @@ class Login extends Component {
                     $(".formInput").addClass('error animated wobble');
                 }
             })
-        }
     }
     render() {
         return (
@@ -46,7 +40,7 @@ class Login extends Component {
                     </div>
                 </div>
                 <div className="loginForm animated bounceInDown delay1">
-                    <Registro visibility={this.state.regVisibility}/>
+                    
                     <form id="login-form" className={this.state.loginVisibility} method="POST" onSubmit={this.handleSubmit}>
                         <div className="iconContainer">
                             <img src="/logos/logo-login.png"/>

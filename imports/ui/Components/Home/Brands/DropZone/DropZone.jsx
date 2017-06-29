@@ -11,7 +11,7 @@ class DropZone extends Component {
         this.handleUpload = this.handleUpload.bind(this);
     }
     componentDidMount() {
-        var componentRef = this;
+        let componentRef = this;
         $('#dnd').on('dragover', function(event) {
             event.preventDefault();
             event.stopPropagation();
@@ -57,12 +57,12 @@ class DropZone extends Component {
             uploaded: false
         });
         let componentRef = this;
-        for(var i = 0; i < files.length; i++) {
+        for(let i = 0; i < files.length; i++) {
             
             Images.insert(files.item(i), function(err, image){
                 
-                var cursor = Images.find({_id: image._id});
-                var liveQuery = cursor.observe({
+                let cursor = Images.find({_id: image._id});
+                let liveQuery = cursor.observe({
                     changed: function(newDoc, oldDoc) {
                         if(newDoc.isUploaded){
                             liveQuery.stop();
@@ -72,22 +72,20 @@ class DropZone extends Component {
                         }
                     }
                 })
-                var intervalHandle = Meteor.setInterval(function () {
+                let intervalHandle = Meteor.setInterval(function () {
                     if (image.hasStored("container")) {
-                        console.log(image._id);
                         Meteor.call("incrementarContador",  (err, res)=> {
-                  if(!err) {
-                      console.log('====================================')
-                      console.log('incrementado',res)
-                      console.log('====================================')
-                      Codigos.insert({Codigo: image._id, Time: 3000, Order:res});
-                        
-                        Meteor.clearInterval(intervalHandle);
-                  }else{
-                      console.log(err);
-                  }
-              });
-                        
+                            if(!err) {
+                                    let Codigo = image._id;
+                                    let Time = 3000;
+                                    let Order = res;
+                                    Meteor.call("insertCodigo", Codigo, Time, Order, (err, res)=> { })
+                                    
+                                    Meteor.clearInterval(intervalHandle);
+                            }else{
+                                console.log(err);
+                            }
+                        });
                     }
                 }, 1000);
             });

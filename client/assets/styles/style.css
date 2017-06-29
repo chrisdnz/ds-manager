@@ -781,8 +781,28 @@ height: 100vh;
   justify-content: center;
   
 } 
-
-
+.list-group{
+    max-height: 575px;
+    overflow-y:auto; 
+}
+.list-group-item span.btn-group-xs{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	white-space: nowrap;
+	list-style: none;
+	padding-left: 0px;
+}
+.list-group-item span.btn-group-xs button.btn{
+	float: right;
+white-space: nowrap;
+display: block;
+padding: 10px 15px;
+margin-bottom: -1px;
+}
+.jumbotron{
+background-color: transparent!important;
+}
 /* ####Margen Completo#### */
 .m-xxs{
   margin: 10px!important;

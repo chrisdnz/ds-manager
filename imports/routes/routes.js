@@ -10,6 +10,7 @@ import Home from '../ui/Components/Home/Home';
 import Brands from '../ui/Components/Home/Brands/Brands';
 import Setup from '../ui/Components/Home/Setup/Setup';
 import TVs from '../ui/Components/Home/TVs/TVs';
+import Users from '../ui/Components/Home/Users/Users';
 import App from '../ui/Components/cliente/App.jsx';
 import TVView from '../ui/Components/Home/TVs/tv_view/tv_view';
 
@@ -72,6 +73,18 @@ FlowRouter.route('/tvs', {
     action: (params, queryParams)=> {
         mount(Layout, {
             content: <TVs />
+        })
+    }
+});
+FlowRouter.route('/users', {
+    triggersEnter: [(context, redirect)=> {
+        if(!Meteor.userId()) {
+            redirect('/');
+        }
+    }],
+    action: (params, queryParams)=> {
+        mount(Layout, {
+            content: <Users />
         })
     }
 });

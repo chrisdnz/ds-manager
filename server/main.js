@@ -1,8 +1,49 @@
 import { Meteor } from 'meteor/meteor';
 import '../imports/api/Ads';
 
+
+
+Accounts.config({ 
+  forbidClientAccountCreation: true 
+});
+
+
+if (!Meteor.isProduction) {
+  const users = [{
+    email: 'admin@admin.com',
+    password: 'password',
+    profile: {
+      fullname: 'Carl Winslow',
+	  role: 'administrador'
+    }
+  }];
+
+  users.forEach(({ email, password, profile, roles }) => {
+    const userExists = Meteor.users.findOne({ 'emails.address': email });
+
+    if (!userExists) {
+      const userId = Accounts.createUser({ email, password, profile });
+    }
+  });
+}
+
+
 Meteor.startup(() => {
     Meteor.methods({
+		insertCodigo:(Codigo, Time, Order) => {
+			if (Meteor.userId) {
+				Codigos.insert({Codigo, Time, Order});
+			} else {
+				throw new Meteor.Error("No-autorizado");
+			}
+		},
+		// cambiarPass:(oldPassword, newPassword) => {
+		// 	if (Meteor.userId) {
+		// 		return (Accounts.changePassword(oldPassword, newPassword))
+		// 	} else {
+		// 		throw new Meteor.Error("No-autorizado");
+		// 	}
+		// },
 		insertTV:(tvname) => {
 			if (Meteor.userId) {
 				if (TVs.find({Name:tvname}).fetch().length>0) {
@@ -32,11 +73,29 @@ Meteor.startup(() => {
               del archivo en el server, es opcional
             */
         },
+		deleteTV:(Name) => {
+            if(Meteor.userId){
+                TVs.remove({Name: Name});
+				TVsImages.remove({tvname:Name}, {multi:true})
+                return "ok";
+            }else{
+                throw new Meteor.Error("No-autorizado");
+            }
+        },
+		editTV:(oldName,newName) => {
+            if(Meteor.userId){
+                TVsImages.update({tvname:oldName}, {$set: {tvname: newName}}, {multi:true});
+				TVs.update({Name:oldName}, {$set: {Name: newName}});
+                return "Ok";
+            }else{
+                throw new Meteor.Error("No-autorizado");
+            }
+        },
         deleteImage:(imageRef) => {
             if(Meteor.userId){
                 Images.remove({_id: imageRef});
                 Codigos.remove({Codigo: imageRef});
-				TVsImages.remove({imagecode:imageRef})
+				TVsImages.remove({imagecode:imageRef}, {multi:true})
                 return "ok";
             }else{
                 throw new Meteor.Error("No-autorizado");
@@ -74,7 +133,30 @@ Meteor.startup(() => {
             }else{
                 throw new Meteor.Error("No-autorizado");
             }
-        }
+        },
+		crearUsuario(user) {
+			if(Meteor.userId){
+                return (Accounts.createUser({
+				email: `${user.username}@unitec.edu`,
+				password: user.password,
+				profile: {
+					fullname: user.fullname,
+					role: 'administrador'
+				}
+				}))
+            }else{
+                throw new Meteor.Error("No-autorizado");
+            }
+			
+		},
+		borrarUsuario(_id) {
+			if(Meteor.userId){
+                return Meteor.users.remove(_id);
+            }else{
+                throw new Meteor.Error("No-autorizado");
+            }
+			
+		},
     })
 });
 

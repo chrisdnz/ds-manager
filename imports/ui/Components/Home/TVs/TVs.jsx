@@ -16,21 +16,6 @@ class TVs extends Component {
         super(props);
         SELF = this;
     }
-    componentWillMount() {
-        
-    }
-    componentDidMount() {
-        
-    }
-    shouldComponentUpdate(nextProps, nextState) {
-        if(nextProps.visibility){
-            
-            return true;
-        }else{
-            
-            return false;
-        }
-    }
     showModal(){
         SELF.refs.modal.show();
     }
@@ -39,7 +24,14 @@ class TVs extends Component {
     }
     onAddClick (event) {
         event.preventDefault();
-        Meteor.call('insertTV', SELF.refs.inputTVName.value, (err, res)=> {
+        if (SELF.refs.inputTVName.value=='') {
+            Alert.error("Debe ingresar un nombre", {
+                          position: 'bottom-right',
+                          effect: 'slide',
+                          timeout: 2500
+                      });
+        } else {
+            Meteor.call('insertTV', SELF.refs.inputTVName.value, (err, res)=> {
                   if(!err) {
                       Alert.success('Agregado!', {
                           position: 'bottom-right',
@@ -55,14 +47,12 @@ class TVs extends Component {
                       });
                   }
               });
+        }
     }
     render() {
         return (
             <div className="animated fadeIn">
-                <h1>TV's</h1>
-                <div className='row'>
-                    <button type="button" className="btn btn-primary pull-right" onClick={this.showModal} >Agregar TV</button>
-                    <Modal ref="modal" modalStyle={modalStyle}>
+                <Modal ref="modal" modalStyle={modalStyle}>
                         <div className='row center-block'>
                             <div className="page-header">
                                 <h2>Agregar TV</h2>
@@ -85,9 +75,16 @@ class TVs extends Component {
                             <button type="button" className="btn btn-danger pull-left" onClick={this.hideModal} >Cancelar</button>
                         </div>
                 </Modal>
+                <h1>TV's</h1>
+                <div className='row'>
+                    <div className='col-md-6 col-xs-offset-3'>
+                        <button type="button" className="btn btn-success pull-right" onClick={this.showModal} >Agregar TV</button>
+                    </div>
                 </div>
                 <div className='row'>
-                    <TVList />
+                    <div className='col-md-6 col-xs-offset-3'>
+                        <TVList />
+                    </div>   
                 </div>
             </div>
         );
