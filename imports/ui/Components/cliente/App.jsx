@@ -48,6 +48,9 @@ class App extends Component {
       fx: 'fade',
       speed: 500,
       timeoutFn: function (curr, next, opts, fwd) {
+        if (curr.tagName === 'VIDEO') {
+         curr.play();
+        }
         return parseInt($(curr).attr('data-duration'));
       }
     });
@@ -64,7 +67,7 @@ class App extends Component {
                 image.fileFormat.split('/')[0] === 'image' ? (
                   <img src={`http://localhost:3000/cfs/files/Images/${image.imagecode}`} data-duration={image.time} key={image._id}></img>
                 ) : (
-                  <video id="myVideo" data-duration={parseFloat(image.time)*1000} autoPlay key={image._id}>
+                  <video id="myVideo" data-duration={parseFloat(image.time)*1000} key={image._id}>
                     <source src={`http://localhost:3000/cfs/files/Images/${image.imagecode}`} type={image.fileFormat}/>
                   </video>
                 )
