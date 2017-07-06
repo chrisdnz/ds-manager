@@ -10,7 +10,7 @@ class SliderTest extends Component {
       minValue: 1,
       maxValue: 60,
       step: 1,
-      inputValue: props.tiempo/1000,
+      inputValue: props.mediaFormat.split('/')[0] === 'image' ? props.tiempo/1000 : props.tiempo,
       firstValue: null,
     };
 

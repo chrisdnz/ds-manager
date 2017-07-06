@@ -1,34 +1,30 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ImageDetail from '../image_detail/image_detail';
 import Sortable from 'react-sortablejs';
 import { createContainer } from 'meteor/react-meteor-data';
 
 
 const updateMediaOrder = (items) => {
-  items.forEach((Codigo, order) => {
-    Meteor.call("updateOrder", Codigo, order, (err, res)=> {
-                
-                  if(!err) {
-                      
-                  }else{
-                      console.log(err);
-                  }
-              });
-  });
-  
+    items.forEach((Codigo, order) => {
+        Meteor.call("updateOrder", Codigo, order, (err, res) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+    });
 };
 
 class ImageList extends Component {
     render() {
         return (
-             this.props.codigos.length > 0 ? <Sortable
-    className="image-list global"
-    onChange={ updateMediaOrder }
-  >
+            this.props.codigos.length > 0 ? <Sortable
+                className="image-list global"
+                onChange={updateMediaOrder}
+            >
                 {this.props.codigos.map(codigo =>
-                    <ImageDetail imagecode={codigo.Codigo} tiempo={ codigo.Time } key={codigo._id}/>
+                    <ImageDetail mediaFormat={codigo.fileFormat} imagecode={codigo.Codigo} tiempo={codigo.Time} key={codigo._id} />
                 )}
-           </Sortable> : <div className="alert alert-danger" role="alert">No media yet.</div>
+            </Sortable> : <div className="alert alert-danger" role="alert">No media yet.</div>
         );
     }
 }

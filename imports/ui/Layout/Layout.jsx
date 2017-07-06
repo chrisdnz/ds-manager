@@ -14,7 +14,7 @@ class Layout extends Component {
                 <div className="bg"></div>
                 <NavBar />
                 <SideBar />
-                <div className="container">
+                <div className="container-owned">
                 {this.props.content}
                 </div>
             </div>

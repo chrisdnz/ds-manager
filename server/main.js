@@ -30,20 +30,13 @@ if (!Meteor.isProduction) {
 
 Meteor.startup(() => {
     Meteor.methods({
-		insertCodigo:(Codigo, Time, Order) => {
+		insertCodigo:(Codigo, Time, Order, fileFormat) => {
 			if (Meteor.userId) {
-				Codigos.insert({Codigo, Time, Order});
+				Codigos.insert({Codigo, Time, Order, fileFormat});
 			} else {
 				throw new Meteor.Error("No-autorizado");
 			}
 		},
-		// cambiarPass:(oldPassword, newPassword) => {
-		// 	if (Meteor.userId) {
-		// 		return (Accounts.changePassword(oldPassword, newPassword))
-		// 	} else {
-		// 		throw new Meteor.Error("No-autorizado");
-		// 	}
-		// },
 		insertTV:(tvname) => {
 			if (Meteor.userId) {
 				if (TVs.find({Name:tvname}).fetch().length>0) {
@@ -56,12 +49,12 @@ Meteor.startup(() => {
 				throw new Meteor.Error("No-autorizado");
 			}
 		},
-		addTVImage:(tvname,imagecode) => {
+		addTVImage:(tvname,imagecode,time,fileFormat) => {
 			if (Meteor.userId) {
 				if (TVsImages.find({tvname:tvname, imagecode:imagecode}).fetch().length>0) {
 					throw new Meteor.Error("Imagen ya está agregada.");
 				} else {
-					TVsImages.insert({tvname,imagecode,time:3000,order:1});
+					TVsImages.insert({tvname,imagecode,time,order:1,fileFormat});
 				}
 				
 			} else {

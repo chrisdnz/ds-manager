@@ -6,7 +6,7 @@ let SELF;
 class App extends Component {
   constructor(props) {
     super(props);
-    SELF=this;
+    SELF = this;
     this.state = {
       ordering: -1,
       images: [
@@ -35,18 +35,18 @@ class App extends Component {
   }
   componentDidMount() {
     var cursor = Codigos.find();
-cursor.observeChanges({
-    changed(newDocument, oldDocument){
+    cursor.observeChanges({
+      changed(newDocument, oldDocument) {
 
-    }
-});
+      }
+    });
 
   }
 
   componentDidUpdate() {
     $('.carousel').cycle({
       fx: 'fade',
-      speed:  500,
+      speed: 500,
       timeoutFn: function (curr, next, opts, fwd) {
         return parseInt($(curr).attr('data-duration'));
       }
@@ -54,15 +54,25 @@ cursor.observeChanges({
   }
 
   render() {
-    let i=0;
+    let i = 0;
     return (
       <div className="cliente-container">
         <div className="carousel">
-          {this.props.tvname!=undefined ? this.props.tvsimages.map(image=> (
-            <img src={`http://localhost:3000/cfs/files/Images/${image.imagecode}`} data-duration={image.time} key={image._id}></img>
-          )): this.props.codigos.map(image=> (
-            <img src={`http://localhost:3000/cfs/files/Images/${image.Codigo}`} data-duration={image.Time} key={image._id}></img>
-          ))}
+          {this.props.tvname != undefined && (
+            this.props.tvsimages.length > 0 ? (
+              this.props.tvsimages.map(image => (
+                image.fileFormat.split('/')[0] === 'image' ? (
+                  <img src={`http://localhost:3000/cfs/files/Images/${image.imagecode}`} data-duration={image.time} key={image._id}></img>
+                ) : (
+                  <video id="myVideo" data-duration={parseFloat(image.time)*1000} autoPlay key={image._id}>
+                    <source src={`http://localhost:3000/cfs/files/Images/${image.imagecode}`} type={image.fileFormat}/>
+                  </video>
+                )
+              ))
+            ) : (
+              <h1 style={{color: '#FFF',fontSize: 32}}>No hay contenido para {this.props.tvname}</h1>
+            )
+          )}
         </div>
         <div className='hidden'>{this.state.ordering}</div>
       </div>
@@ -77,8 +87,8 @@ export default createContainer(props => {
   console.log(tvname);
   return {
     codigos: Codigos.find({}, { sort: { Order: 1 } }).fetch(),
-    tvsimages: TVsImages.find({}, { sort: { order: 1 }}).fetch(tvname),
-    tvname:tvname,
+    tvsimages: TVsImages.find({}, { sort: { order: 1 } }).fetch(tvname),
+    tvname: tvname,
     ads: Ad.find({}).fetch(),
   }
 }, App);

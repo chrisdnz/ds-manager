@@ -25,7 +25,7 @@ const updateMediaOrder = (items) => {
 
 };
 const updateMediaOrder2 = (items) => {
-     var tvname = FlowRouter.getParam("tvName");
+    var tvname = FlowRouter.getParam("tvName");
     items.forEach((imagecode, order) => {
         Meteor.call("updateTVOrder", tvname, imagecode, order, (err, res) => {
             if (!err) {
@@ -46,16 +46,16 @@ class TVView extends Component {
 
     render() {
 
-        return ( 
-            <div className = "animated fadeIn" >
-                <h1 > TV 's</h1> 
-                <div className = "row" >
-                    <div className = "col-sm-6" >
-                        <h2> Global </h2> 
-                        {this.props.codigos.length > 0 ? 
+        return (
+            <div className="animated fadeIn" >
+                <h1 > TV 's</h1>
+                <div className="row" >
+                    <div className="col-sm-6" >
+                        <h2> Global </h2>
+                        {this.props.codigos.length > 0 ?
                             <Sortable
-                                className = "image-list tvs"
-                                onChange = {updateMediaOrder } 
+                                className="image-list tvs"
+                                onChange={updateMediaOrder}
                                 options={{
                                     animation: 150,
                                     group: {
@@ -67,18 +67,18 @@ class TVView extends Component {
                                 }}
                             >
                                 {
-                                 this.props.codigos.map(codigo =>
-                                    <ImageDetail imagecode={codigo.Codigo} tiempo={ codigo.Time } key={codigo._id}/>
-                                )
+                                    this.props.codigos.map(codigo =>
+                                        <ImageDetail mediaFormat={codigo.fileFormat} imagecode={codigo.Codigo} tiempo={codigo.Time} key={codigo._id} />
+                                    )
                                 } </Sortable> : <div className="alert alert-danger" role="alert">No media yet.</div>
-                        } 
-                    </div> 
-                       <div className = "col-sm-6" >
-                        <h2> Televisor {FlowRouter.getParam("tvName")} </h2> 
-                        {this.props.codigos.length > 0 ? 
+                        }
+                    </div>
+                    <div className="col-sm-6" >
+                        <h2> Televisor {FlowRouter.getParam("tvName")} </h2>
+                        {this.props.codigos.length > 0 ?
                             <Sortable
-                                className = "image-list tvs"
-                                onChange = {updateMediaOrder2 } 
+                                className="image-list tvs"
+                                onChange={updateMediaOrder2}
                                 options={{
                                     animation: 150,
                                     group: {
@@ -87,37 +87,39 @@ class TVView extends Component {
                                         put: true
                                     },
                                     onAdd: function (evt) {
-                                                var itemEl = evt.item;  // dragged HTMLElement
-                                                evt.from;  // previous list
-                                                // + indexes from onEnd
-                                                var imagecode =itemEl.getAttribute("data-id");
-                                                var tvname = FlowRouter.getParam("tvName");
-                                                Meteor.call("addTVImage",  tvname, imagecode, 3000, (err, res) => {
-                                                    if (!err) {
-                                                        Alert.success(`Imagen agregada`, {
-                                                        position: 'bottom-right',
-                                                        effect: 'slide',
-                                                        timeout: 1000
-                                                        });
-                                                    } else {
-                                                        Alert.error(err.message, {
-                                                        position: 'bottom-right',
-                                                        effect: 'slide',
-                                                        timeout: 2000
-                                                        });
-                                                    }
+                                        var itemEl = evt.item;  // dragged HTMLElement
+                                        evt.from;  // previous list
+                                        // + indexes from onEnd
+                                        var imagecode = itemEl.getAttribute("data-id");
+                                        var imagetime = itemEl.getAttribute("data-duration");
+                                        var imageformat = itemEl.getAttribute("data-format");
+                                        var tvname = FlowRouter.getParam("tvName");
+                                        Meteor.call("addTVImage", tvname, imagecode, imagetime, imageformat, (err, res) => {
+                                            if (!err) {
+                                                Alert.success(`Imagen agregada`, {
+                                                    position: 'bottom-right',
+                                                    effect: 'slide',
+                                                    timeout: 1000
                                                 });
-	                                }
+                                            } else {
+                                                Alert.error(err.message, {
+                                                    position: 'bottom-right',
+                                                    effect: 'slide',
+                                                    timeout: 2000
+                                                });
+                                            }
+                                        });
+                                    }
                                 }}
                             >
                                 {
-                                 this.props.tvsimages.map(tvsimage =>
-                                    <ImageDetail imagecode={tvsimage.imagecode} tvname={tvsimage.tvname} tiempo={tvsimage.time} key={tvsimage._id}/>
-                                )
+                                    this.props.tvsimages.map(tvsimage =>
+                                        <ImageDetail mediaFormat={tvsimage.fileFormat} imagecode={tvsimage.imagecode} tvname={tvsimage.tvname} tiempo={tvsimage.time} key={tvsimage._id} />
+                                    )
                                 } </Sortable> : <div className="alert alert-danger" role="alert">No media yet.</div>
-                        } 
-                    </div> 
-            </div> 
+                        }
+                    </div>
+                </div>
             </div>
         );
     }
@@ -128,8 +130,8 @@ export default createContainer(props => {
     var tvname = FlowRouter.getParam("tvName");
     let data2 = Meteor.subscribe('TVsImages.view', tvname);
     return {
-        codigos: Codigos.find({}, { sort: { Order: 1 }}).fetch(),
-        tvsimages: TVsImages.find({}, { sort: { order: 1 }}).fetch(tvname),
+        codigos: Codigos.find({}, { sort: { Order: 1 } }).fetch(),
+        tvsimages: TVsImages.find({}, { sort: { order: 1 } }).fetch(tvname),
         ready: data.ready()
     }
 }, TVView)

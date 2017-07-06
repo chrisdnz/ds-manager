@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Alert from 'react-s-alert';
 var Halogen = require('halogen');
 class Imageitem extends Component {
@@ -6,10 +6,10 @@ class Imageitem extends Component {
         super(props);
         this.handleDeleteImage = this.handleDeleteImage.bind(this);
         this.handleLoadingImage = this.handleLoadingImage.bind(this);
-        this.state={loading:true,setClass:'adImage hidden'}
+        this.state = { loading: true, setClass: 'adImage hidden' }
     }
-    handleLoadingImage(){
-        this.setState({loading:false, setClass:'adImage'})
+    handleLoadingImage() {
+        this.setState({ loading: false, setClass: 'adImage' })
     }
     handleDeleteImage(imageRef) {
         let componentRef = this;
@@ -21,33 +21,33 @@ class Imageitem extends Component {
             success: true,
             focus: "cancel"
         }, function (ok) {
-            if(ok){
+            if (ok) {
                 if (componentRef.props.tvname) {
-      Meteor.call("deleteImageTV", componentRef.props.imagecode, componentRef.props.tvname, (err, res)=> {
-                  if(!err) {
-                      Alert.success('Eliminada!', {
-                          position: 'bottom-right',
-                          effect: 'slide',
-                          timeout: 2500
-                      });
-                  }else{
-                      console.log(err);
-                  }
-              });
-    } else {
-      Meteor.call("deleteImage", componentRef.props.imagecode, (err, res)=> {
-                  if(!err) {
-                      Alert.success('Eliminada!', {
-                          position: 'bottom-right',
-                          effect: 'slide',
-                          timeout: 2500
-                      });
-                  }else{
-                      console.log(err);
-                  }
-              });
-    }
-              
+                    Meteor.call("deleteImageTV", componentRef.props.imagecode, componentRef.props.tvname, (err, res) => {
+                        if (!err) {
+                            Alert.success('Eliminada!', {
+                                position: 'bottom-right',
+                                effect: 'slide',
+                                timeout: 2500
+                            });
+                        } else {
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    Meteor.call("deleteImage", componentRef.props.imagecode, (err, res) => {
+                        if (!err) {
+                            Alert.success('Eliminada!', {
+                                position: 'bottom-right',
+                                effect: 'slide',
+                                timeout: 2500
+                            });
+                        } else {
+                            console.log(err);
+                        }
+                    });
+                }
+
             }
         });
     }
@@ -74,13 +74,21 @@ class Imageitem extends Component {
             WebkitJustifyContent: 'center',
             justifyContent: 'center'
         };
-        let {loading,setClass} = this.state;
+        let { loading, setClass } = this.state;
         return (
             <li className="ad-background" onClick={this.handleDeleteImage}>
-                <img onLoad={this.handleLoadingImage} className={setClass} src={`http://localhost:3000/cfs/files/Images/${this.props.imagecode}`  }/>
-                {loading ? <div className='adImage' style={style}><Halogen.MoonLoader color={color}/></div>: 
-                <div><i className="icojam_trash_1"></i>
-                <small>Eliminar</small></div>}
+                {
+                    this.props.mediaFormat.split('/')[0] === 'image' ? (
+                        <img onLoad={this.handleLoadingImage} className={setClass} src={`http://localhost:3000/cfs/files/Images/${this.props.imagecode}`} />
+                    ) : (
+                        <video id="myVideo" onLoadStart={this.handleLoadingImage} className={setClass}>
+                            <source src={`http://localhost:3000/cfs/files/Images/${this.props.imagecode}#t=5,10`} type={this.props.mediaFormat}/>
+                        </video>
+                    )
+                }
+                {loading ? <div className='adImage' style={style}><Halogen.MoonLoader color={color} /></div> :
+                    <div><i className="icojam_trash_1"></i>
+                        <small>Eliminar</small></div>}
             </li>
         );
     }

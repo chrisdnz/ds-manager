@@ -99,6 +99,7 @@ class TVList extends Component {
         SELF.setState({Name:"",_id:""})
     }
     render() {
+        const { buttonStyles } = styles;
         return (
              this.props.tvs.length > 0 ? 
                 <ul className="list-group">
@@ -126,14 +127,14 @@ class TVList extends Component {
                         </div>
                 </Modal>
                    {this.props.tvs.map(({ _id, Name }) =>  (
-                        <li className="list-group-item list-group-item-info" key={_id}>
+                        <li className="list-group-item" style={{color: '#444'}} key={_id}>
                             {Name}
-                             <span className="btn-group-xs pull-right" role="group">
-                                <button  data-toggle="tooltip" data-placement="bottom" title="Eliminar" container="body" onClick={() => this.handleRemove(event,Name)} type="button" className="btn btn-danger"> <span className="glyphicon glyphicon-remove"  aria-hidden="true"></span></button>
-                                <button data-toggle="tooltip" data-placement="bottom" title="Cambiar Nombre" container="body" onClick={() => this.showModal(Name,_id)} type="button" className="btn btn-warning"> <span className="glyphicon glyphicon-pencil"  aria-hidden="true"></span></button>
-                                <button data-toggle="tooltip" data-placement="bottom" title="Vista Previa" container="body" onClick={() => this.handlePreview(event,Name)} type="button" className="btn btn-success"> <span className="glyphicon glyphicon-eye-open"  aria-hidden="true"></span></button>
-                                <button data-toggle="tooltip" data-placement="bottom" title="Contenido" container="body" onClick={() => this.handleGo(event,Name)} type="button" className="btn btn-info"> <span className="glyphicon glyphicon-picture"  aria-hidden="true"></span></button>
-                            </span> 
+                            <span className="btn-group-xs pull-right">
+                                <button title="Eliminar" onClick={() => this.handleRemove(event,Name)} type="button" style={buttonStyles} className="btn btn-default"> <span className="glyphicon glyphicon-remove"></span></button>
+                                <button title="Cambiar Nombre" onClick={() => this.showModal(Name,_id)} type="button" style={buttonStyles} className="btn btn-default"> <span className="glyphicon glyphicon-pencil"></span></button>
+                                <button title="Vista Previa" onClick={() => this.handlePreview(event,Name)} type="button" style={buttonStyles} className="btn btn-default"> <span className="glyphicon glyphicon-eye-open"></span></button>
+                                <button title="Contenido" onClick={() => this.handleGo(event,Name)} type="button" style={buttonStyles} className="btn btn-default"> <span className="glyphicon glyphicon-tasks"></span></button>
+                            </span>
                         </li>
                     ))}
                 </ul> 
@@ -141,6 +142,12 @@ class TVList extends Component {
         );
     }
 }
+
+const styles = {
+    buttonStyles: {
+        border: 0
+    }
+};
 
 export default createContainer(props => {
     let data = Meteor.subscribe("TVs");
