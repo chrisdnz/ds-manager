@@ -33,26 +33,40 @@ class App extends Component {
       ]
     }
   }
-  componentDidMount() {
-    var cursor = Codigos.find();
-    cursor.observeChanges({
-      changed(newDocument, oldDocument) {
-
-      }
-    });
-
-  }
 
   componentDidUpdate() {
     $('.carousel').cycle({
       fx: 'fade',
       speed: 500,
       timeoutFn: function (curr, next, opts, fwd) {
-        if (curr.tagName === 'VIDEO') {
-         curr.play();
-        }
         return parseInt($(curr).attr('data-duration'));
-      }
+      },
+      after: function (curr, next, opts, fwd) {
+
+      },
+      before: function (curr, next, opts, fwd) {
+        let siguiente = this;
+        let actual = curr;
+        if (actual.tagName === 'VIDEO') {
+          let refreshId = setInterval(function () {
+            if (actual.ended) {
+              $('.carousel').cycle('resume');
+
+              if (siguiente.tagName === 'VIDEO') {
+                siguiente.play();
+              }
+              clearInterval(refreshId);
+            } else {
+              
+              $('.carousel').cycle('pause');
+            }
+          }, 1000);
+        } else {
+          if (siguiente.tagName === 'VIDEO') {
+            siguiente.play();
+          }
+        }
+      },
     });
   }
 
