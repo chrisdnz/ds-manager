@@ -61,14 +61,14 @@ class DropZone extends Component {
                     changed: function (newDoc, oldDoc) {
                         if (newDoc.isUploaded) {
                             liveQuery.stop();
-                            componentRef.setState({
-                                uploaded: true
-                            });
                         }
                     }
                 })
                 let intervalHandle = Meteor.setInterval(function () {
                     if (image.hasStored("container")) {
+                        componentRef.setState({
+                            uploaded: true
+                        });
                         // Meteor.call("incrementarContador", (err, res) => {
                         // if (!err) {
                         if (files.item(i).type.split("/")[0] === 'image') {
