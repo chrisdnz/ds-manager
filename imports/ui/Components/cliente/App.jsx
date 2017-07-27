@@ -7,67 +7,47 @@ class App extends Component {
   constructor(props) {
     super(props);
     SELF = this;
-    this.state = {
-      ordering: -1,
-      images: [
-        {
-          id: "ejYv7HrKtZYvPiq4c",
-          url: "https://i.ytimg.com/vi/GTBaQ2DcGUk/maxresdefault.jpg",
-          timer: 10000,
-        },
-        {
-          id: "eWofD2biM4KTR6zsi",
-          url: "http://techrasa.com/wp-content/uploads/2016/05/google-services-open-iran.jpg",
-          timer: 1500,
-        },
-        {
-          id: "eLrSxLAPXj8zbgcQ8",
-          url: "http://s.newsweek.com/sites/www.newsweek.com/files/2016/06/22/iphone-7-apple-redesign-2017-rumors-specs.jpg",
-          timer: 6500,
-        },
-        {
-          id: "eApzarndTAWwTmTx7",
-          url: "https://www.wired.com/wp-content/uploads/2016/05/youtube-logos-f.jpg",
-          timer: 20500,
-        }
-      ]
-    }
   }
-
   componentDidUpdate() {
-    $('.carousel').cycle({
-      fx: 'fade',
-      speed: 500,
-      timeoutFn: function (curr, next, opts, fwd) {
-        return parseInt($(curr).attr('data-duration'));
-      },
-      after: function (curr, next, opts, fwd) {
+    if (this.props.tvsimages.length>1) {
+      $('.carousel').cycle({
+        fx: 'fade',
+        speed: 500,
+        timeoutFn: function (curr, next, opts, fwd) {
+          return parseInt($(curr).attr('data-duration'));
+        },
+        after: function (curr, next, opts, fwd) {
 
-      },
-      before: function (curr, next, opts, fwd) {
-        let siguiente = this;
-        let actual = curr;
-        if (actual.tagName === 'VIDEO') {
-          let refreshId = setInterval(function () {
-            if (actual.ended) {
-              $('.carousel').cycle('resume');
+        },
+        before: function (curr, next, opts, fwd) {
 
-              if (siguiente.tagName === 'VIDEO') {
-                siguiente.play();
+          let siguiente = this;
+          let actual = curr;
+          console.log('actual',actual);
+          console.log('siguiente',siguiente);
+          if (actual.tagName === 'VIDEO') {
+            let ended = setInterval(function () {
+              if (actual.ended) {
+                $('.carousel').cycle('resume');
+                if (siguiente.tagName === 'VIDEO') {
+                  siguiente.play();
+                }
+                clearInterval(ended);
+              } else {
+
+                $('.carousel').cycle('pause');
               }
-              clearInterval(refreshId);
-            } else {
+            }, 1000);
+          } else {
               
-              $('.carousel').cycle('pause');
+            if (siguiente.tagName === 'VIDEO') {
+              siguiente.play();
             }
-          }, 1000);
-        } else {
-          if (siguiente.tagName === 'VIDEO') {
-            siguiente.play();
           }
-        }
-      },
-    });
+        },
+      });
+    }
+
   }
 
   render() {
@@ -91,7 +71,6 @@ class App extends Component {
             )
           )}
         </div>
-        <div className='hidden'>{this.state.ordering}</div>
       </div>
     );
   }
@@ -101,7 +80,6 @@ export default createContainer(props => {
   let time = Meteor.subscribe("ads");
   var tvname = FlowRouter.getParam("tvName");
   let data2 = Meteor.subscribe('TVsImages.view', tvname);
-  console.log(tvname);
   return {
     codigos: Codigos.find({}, { sort: { Order: 1 } }).fetch(),
     tvsimages: TVsImages.find({}, { sort: { order: 1 } }).fetch(tvname),
