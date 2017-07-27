@@ -511,7 +511,7 @@ iframe.iframe{
 	z-index: 100;
     position: relative;
 }
- 
+
  div.image-list.tvs{
 	 background: rgba(0, 0, 0, 0.5);
 border-radius: 5px;
@@ -783,14 +783,14 @@ border: 1px solid rgba(255, 0, 0, 0.2);
 	color: #cad72b;
 }
 
-.center-block {  
-  display: flex;  
+.center-block {
+  display: flex;
   justify-content: center;
-  
-} 
+
+}
 .list-group{
     max-height: 575px;
-    overflow-y:auto; 
+    overflow-y:auto;
 }
 .list-group-item span.btn-group-xs{
 	position: absolute;
@@ -1093,4 +1093,26 @@ background-color: transparent!important;
 }
 .p-r-xl{
   padding-right: 150px!important;
+}
+
+.myspinner {
+  position: absolute;
+  z-index: 1000;
+  /*padding-top: 20%;
+  padding-left: 35%;
+  padding-right: 30%;*/
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+.myspinner i {
+  font-size: 75px;
+  color: rgba(255,255,255, 0.8);
 }
