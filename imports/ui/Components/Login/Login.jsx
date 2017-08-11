@@ -27,8 +27,8 @@ class Login extends Component {
             <div>
                 <div className="bgVideo animated slow fadeIn">
                     <div className="videoContainer">
-                        <video id="topVideo" autoPlay loop muted preload="auto">
-                            <source id="topVideoSrc" src="https://unitec-anuncios.herokuapp.com/video/WelcomeUnitec.mp4" />
+                        <video autoPlay loop muted preload="auto">
+                            <source id="topVideoSrc" src="http://fia.unitec.edu/www/media/unitec-media/Bienvenidos a Unitec.mp4" />
                             Su navegador no soporta video
                         </video>
                     </div>

@@ -179,14 +179,16 @@ body{
 }
 
 .bgVideo{
-	height: 100%;
-	width: 100%;
+	height: 100vh;
+	width: 100vw;
 	z-index: -1;
 	position: absolute;
 	top: 0;
 	left: 0;
 }
-
+.bgVideo .videoContainer video {
+  width: 100%;
+}
 .bgVideo .videoContainer{
 	height: 100%;
 	width: 100%;
@@ -209,8 +211,8 @@ body{
 .bgVideo:after{
 	background-color:rgba(0,0,0,0.35);
   	position: absolute;
-	height: 100%;
-	width: 100%;
+	height: 100vh;
+	width: 100vw;
 	content: "";
 }
 
