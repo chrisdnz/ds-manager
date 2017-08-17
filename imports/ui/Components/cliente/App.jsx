@@ -133,12 +133,12 @@ class App extends Component {
               this.props.tvsimages.map(image => (
                 image.fileFormat.split('/')[0] === 'image' ? (
                   <div key={image._id} data-cycle-timeout={image.time}>
-                    <img src={`http://unitecanuncios.herokuapp.com/cfs/files/Images/${image.imagecode}`}></img>
+                    <img src={`http://fia.unitec.edu/cfs/files/Images/${image.imagecode}`}></img>
                   </div>
                 ) : (
                   <div key={image._id} data-cycle-timeout="200">
                     <video id="myVideo">
-                      <source src={`http://unitecanuncios.herokuapp.com/cfs/files/Images/${image.imagecode}`} type={image.fileFormat}/>
+                      <source src={`http://fia.unitec.edu/cfs/files/Images/${image.imagecode}`} type={image.fileFormat}/>
                     </video>
                   </div>
                 )

@@ -79,10 +79,10 @@ class Imageitem extends Component {
             <li className="ad-background" onClick={this.handleDeleteImage}>
                 {
                     this.props.mediaFormat.split('/')[0] === 'image' ? (
-                        <img onLoad={this.handleLoadingImage} className={setClass} src={`http://unitecanuncios.herokuapp.com/cfs/files/Images/${this.props.imagecode}`} />
+                        <img onLoad={this.handleLoadingImage} className={setClass} src={`http://fia.unitec.edu/cfs/files/Images/${this.props.imagecode}`} />
                     ) : (
                         <video id="myVideo" onLoadStart={this.handleLoadingImage} className={setClass}>
-                            <source src={`http://unitecanuncios.herokuapp.com/cfs/files/Images/${this.props.imagecode}#t=5,10`} type={this.props.mediaFormat}/>
+                            <source src={`http://fia.unitec.edu/cfs/files/Images/${this.props.imagecode}#t=5,10`} type={this.props.mediaFormat}/>
                         </video>
                     )
                 }
