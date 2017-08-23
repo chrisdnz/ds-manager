@@ -82,6 +82,9 @@ class DropZone extends Component {
                             if (i == files.length-1) {
                                 let hideProgress = Meteor.setInterval(function () {
                                     $('#progressBar').css("display", "none");
+                                    componentRef.setState({
+                                        uploaded: true
+                                    });
                                     bar.animate(0);
                                     Meteor.clearInterval(hideProgress);
                                 }, 2000);
@@ -91,9 +94,6 @@ class DropZone extends Component {
                 })
                 let intervalHandle = Meteor.setInterval(function () {
                     if (image.hasStored("container")) {
-                        componentRef.setState({
-                            uploaded: true
-                        });
                         // Meteor.call("incrementarContador", (err, res) => {
                         // if (!err) {
                         if (files.item(i).type.split("/")[0] === 'image') {
