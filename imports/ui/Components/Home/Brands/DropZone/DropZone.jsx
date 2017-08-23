@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader';
-import { createContainer } from 'meteor/react-meteor-data';
+import ProgressBar from './progressbar.js';
 
+import { createContainer } from 'meteor/react-meteor-data';
+let bar = null;
 class DropZone extends Component {
     constructor(props) {
         super(props);
@@ -11,6 +13,15 @@ class DropZone extends Component {
         this.handleUpload = this.handleUpload.bind(this);
     }
     componentDidMount() {
+        bar = new ProgressBar.Line(progressBar, {
+          strokeWidth: 4,
+          easing: 'easeInOut',
+          duration: 2000,
+          color: '#5cb85c',
+          trailColor: '#eee',
+          trailWidth: 1,
+          svgStyle: {width: '100%', height: '100%'},
+        });
         let componentRef = this;
         $('#dnd').on('dragover', function (event) {
             event.preventDefault();
@@ -53,7 +64,10 @@ class DropZone extends Component {
         this.setState({
             uploaded: false
         });
+        $('#progressBar').css("display", "block");
         let componentRef = this;
+        let percent = 1 / files.length;
+        let pos = 0;
         for (let i = 0; i < files.length; i++) {
             Images.insert(files.item(i), function (err, image) {
                 let cursor = Images.find({ _id: image._id });
@@ -61,6 +75,17 @@ class DropZone extends Component {
                     changed: function (newDoc, oldDoc) {
                         if (newDoc.isUploaded) {
                             liveQuery.stop();
+                            pos = pos + percent;
+                            bar.animate(pos);
+                            console.log("length:",files.length);
+                            console.log("i:",i);
+                            if (i == files.length-1) {
+                                let hideProgress = Meteor.setInterval(function () {
+                                    $('#progressBar').css("display", "none");
+                                    bar.animate(0);
+                                    Meteor.clearInterval(hideProgress);
+                                }, 2000);
+                            }
                         }
                     }
                 })
@@ -119,11 +144,15 @@ class DropZone extends Component {
             position: 'absolute'
         }
         return (
-            <div id="dnd" className="jqDropZone fade">
-                <Loader loaded={this.state.uploaded} options={options}>
-                    Arrastre aqui y deje caer el archivo
-                </Loader>
+            <div>
+                <div id="progressBar"></div>
+                <div id="dnd" className="jqDropZone fade">
+                    <Loader loaded={this.state.uploaded} options={options}>
+                        Arrastre aqui y deje caer el archivo
+                    </Loader>
+                </div>
             </div>
+
         );
     }
 }
