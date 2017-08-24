@@ -14,7 +14,7 @@ class Registro extends Component {
             password: this.refs.password.value
         };
         Accounts.createUser({
-            email: `${user.username}@unitec.edu`,
+            email: user.username,
             password: user.password,
             profile: {
                 fullname: user.fullname,

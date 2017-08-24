@@ -3,8 +3,8 @@ import '../imports/api/Ads';
 
 
 
-Accounts.config({ 
-  forbidClientAccountCreation: true 
+Accounts.config({
+  forbidClientAccountCreation: true
 });
 
 
@@ -44,7 +44,7 @@ Meteor.startup(() => {
 				} else {
 					TVs.insert({Name:tvname});
 				}
-				
+
 			} else {
 				throw new Meteor.Error("No-autorizado");
 			}
@@ -56,7 +56,7 @@ Meteor.startup(() => {
 				} else {
 					TVsImages.insert({tvname,imagecode,time,order:1,fileFormat});
 				}
-				
+
 			} else {
 				throw new Meteor.Error("No-autorizado");
 			}
@@ -130,7 +130,7 @@ Meteor.startup(() => {
 		crearUsuario(user) {
 			if(Meteor.userId){
                 return (Accounts.createUser({
-				email: `${user.username}@unitec.edu`,
+				email: user.username,
 				password: user.password,
 				profile: {
 					fullname: user.fullname,
@@ -140,7 +140,7 @@ Meteor.startup(() => {
             }else{
                 throw new Meteor.Error("No-autorizado");
             }
-			
+
 		},
 		borrarUsuario(_id) {
 			if(Meteor.userId){
@@ -148,7 +148,7 @@ Meteor.startup(() => {
             }else{
                 throw new Meteor.Error("No-autorizado");
             }
-			
+
 		},
     })
 });

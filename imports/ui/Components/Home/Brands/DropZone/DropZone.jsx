@@ -93,38 +93,56 @@ class DropZone extends Component {
                     }
                 })
                 let intervalHandle = Meteor.setInterval(function () {
-                    if (image.hasStored("container")) {
+                    if (image.hasStored("thumbs") && files.item(i).type.split("/")[0] === 'image') {
                         // Meteor.call("incrementarContador", (err, res) => {
                         // if (!err) {
-                        if (files.item(i).type.split("/")[0] === 'image') {
+
                             let Codigo = image._id;
                             let Time = 3000;
                             let Order = 1;
                             let fileFormat = files.item(i).type;
                             Meteor.call("insertCodigo", Codigo, Time, Order, fileFormat, (err, res) => { })
-                        } else {
-                            let Codigo = image._id;
-                            // setting duration to video
-                            var myVideos = [];
-                            window.URL = window.URL || window.webkitURL;
-                            myVideos.push(files.item(0));
-                            var video = document.createElement('video');
-                            video.preload = 'metadata';
-                            video.onloadedmetadata = function () {
-                                window.URL.revokeObjectURL(this.src)
-                                var duration = video.duration;
-                                let Order = 1;
-                                let fileFormat = files.item(i).type;
-                                Meteor.call("insertCodigo", Codigo, duration, Order, fileFormat, (err, res) => { })
-                            }
-                            video.src = URL.createObjectURL(files.item(0));
-                        }
+
 
                         Meteor.clearInterval(intervalHandle);
                         // } else {
                         //     console.log(err);
                         // }
                         // });
+                    }else {
+                        if (image.hasStored("container") && files.item(i).type.split("/")[0] != 'image') {
+                            // Meteor.call("incrementarContador", (err, res) => {
+                            // if (!err) {
+                            if (files.item(i).type.split("/")[0] === 'image') {
+                                let Codigo = image._id;
+                                let Time = 3000;
+                                let Order = 1;
+                                let fileFormat = files.item(i).type;
+                                Meteor.call("insertCodigo", Codigo, Time, Order, fileFormat, (err, res) => { })
+                            } else {
+                                let Codigo = image._id;
+                                // setting duration to video
+                                var myVideos = [];
+                                window.URL = window.URL || window.webkitURL;
+                                myVideos.push(files.item(0));
+                                var video = document.createElement('video');
+                                video.preload = 'metadata';
+                                video.onloadedmetadata = function () {
+                                    window.URL.revokeObjectURL(this.src)
+                                    var duration = video.duration;
+                                    let Order = 1;
+                                    let fileFormat = files.item(i).type;
+                                    Meteor.call("insertCodigo", Codigo, duration, Order, fileFormat, (err, res) => { })
+                                }
+                                video.src = URL.createObjectURL(files.item(0));
+                            }
+
+                            Meteor.clearInterval(intervalHandle);
+                            // } else {
+                            //     console.log(err);
+                            // }
+                            // });
+                        }
                     }
                 }, 1000);
             });
