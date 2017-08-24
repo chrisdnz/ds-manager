@@ -130,7 +130,7 @@ Meteor.startup(() => {
 		crearUsuario(user) {
 			if(Meteor.userId){
                 return (Accounts.createUser({
-				email: user.username,
+				username: user.username,
 				password: user.password,
 				profile: {
 					fullname: user.fullname,
